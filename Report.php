@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FK-Edusearch Reporting and Analytics</title>
+  <title>FK-Edushbearch Reporting and Analytics</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
