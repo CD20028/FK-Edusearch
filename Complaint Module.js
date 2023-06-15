@@ -34,7 +34,6 @@ function populateComplaintTable() {
             <td>${complaint.status}</td>
             <td class="actions">
                 <button onclick="viewComplaint(${complaint.id})">View</button>
-                <button onclick="updateComplaint(${complaint.id})">Update</button>
                 <button onclick="deleteComplaint(${complaint.id})">Delete</button>
             </td>
         `;
@@ -83,12 +82,6 @@ function handleFormSubmit(event) {
 function viewComplaint(id) {
     // Retrieve the complaint based on the ID and perform the necessary actions
     console.log("Viewing complaint:", id);
-}
-
-// Function to update a complaint
-function updateComplaint(id) {
-    // Retrieve the complaint based on the ID and perform the necessary actions
-    console.log("Updating complaint:", id);
 }
 
 // Function to delete a complaint

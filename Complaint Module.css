@@ -62,7 +62,7 @@ textarea {
   display: block;
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   text-align: center;
   background-color: #4CAF50;
@@ -75,3 +75,81 @@ textarea {
 .btn-submit:hover {
   background-color: #45a049;
 }
+  button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  .topnav {
+    overflow: hidden;
+    background-color: rgb(255, 253, 253);
+  }
+  
+  .topnav a {
+    float: right;
+    color: #000000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 12px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #65b497;
+    color: rgb(0, 0, 0);
+  }
+  .actions-container {
+    display: flex;
+  }
+  
+  .actions-container button {
+    margin-right: 5px;
+  }
+  button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #65b497;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  .topnav {
+    overflow: hidden;
+    background-color: rgb(255, 253, 253);
+  }
+  
+  .topnav a {
+    float: right;
+    color: #000000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #8af1cc;
+    color: rgb(0, 0, 0);
+  }
+  .actions-container {
+    display: flex;
+  }

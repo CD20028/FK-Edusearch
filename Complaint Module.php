@@ -1,102 +1,106 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Complaint Module</title>
-</head>
-<body>
-    <h1>Complaint Module</h1>
-    
-    <?php
-        // Database connection
-        $servername = "localhost";
-        $username = "your_username";
-        $password = "your_password";
-        $dbname = "your_database_name";
-        
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+<?php
+// Database configuration
+$host = "localhost";
+$username = "samimosky";
+$password = "Syaa271811#";
+$database = "fk-edu";
+
+// Create database connection
+$conn = new mysqli($host, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Sample complaint data
+$complaints = [
+    [
+        "id" => 1,
+        "user_id" => 123,
+        "expert_id" => 456,
+        "complaint_type" => "Unsatisfied Expert's Feedback",
+        "description" => "Expert did not provide sufficient guidance.",
+        "status" => "In Investigation"
+    ],
+    [
+        "id" => 2,
+        "user_id" => 789,
+        "expert_id" => 123,
+        "complaint_type" => "Wrongly Assigned Research Area",
+        "description" => "Assigned expert does not have expertise in the specified research area.",
+        "status" => "Resolved"
+    ]
+];
+
+// Function to populate the complaint table
+function populateComplaintTable($conn) {
+    $complaintTable = "<table id='complaintTable'>
+        <thead>
+            <tr>
+                <th>Complaint ID</th>
+                <th>User ID</th>
+                <th>Expert ID</th>
+                <th>Complaint Type</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>";
+
+    // Retrieve complaints from the database
+    $sql = "SELECT * FROM complaints";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $complaintTable .= "<tr>
+                <td>{$row['id']}</td>
+                <td>{$row['user_id']}</td>
+                <td>{$row['expert_id']}</td>
+                <td>{$row['complaint_type']}</td>
+                <td>{$row['description']}</td>
+                <td>{$row['status']}</td>
+                <td class='actions'>
+                    <button onclick='viewComplaint({$row['id']})'>View</button>
+                    <button onclick='deleteComplaint({$row['id']})'>Delete</button>
+                </td>
+            </tr>";
         }
-        
-        // Function to create a complaint
-        if (isset($_POST['submit'])) {
-            $user_id = $_POST['user_id'];
-            $expert_id = $_POST['expert_id'];
-            $complaint_type = $_POST['complaint_type'];
-            $description = $_POST['description'];
-            
-            $sql = "INSERT INTO complaints (user_id, expert_id, complaint_type, description) VALUES ('$user_id', '$expert_id', '$complaint_type', '$description')";
-            
-            if ($conn->query($sql) === TRUE) {
-                echo "Complaint created successfully.";
-            } else {
-                echo "Error creating complaint: " . $conn->error;
-            }
-        }
-        
-        // Function to delete a complaint
-        if (isset($_GET['delete'])) {
-            $complaint_id = $_GET['delete'];
-            
-            $sql = "DELETE FROM complaints WHERE complaint_id='$complaint_id'";
-            
-            if ($conn->query($sql) === TRUE) {
-                echo "Complaint deleted successfully.";
-            } else {
-                echo "Error deleting complaint: " . $conn->error;
-            }
-        }
-        
-        // Retrieve and display complaints from the database
-        $sql = "SELECT * FROM complaints";
-        $result = $conn->query($sql);
-        
-        if ($result->num_rows > 0) {
-            echo "<h2>Complaint List</h2>";
-            echo "<table>";
-            echo "<thead><tr><th>Complaint ID</th><th>User ID</th><th>Expert ID</th><th>Complaint Type</th><th>Description</th><th>Status</th><th>Action</th></tr></thead>";
-            echo "<tbody>";
-            
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $row['complaint_id'] . "</td>";
-                echo "<td>" . $row['user_id'] . "</td>";
-                echo "<td>" . $row['expert_id'] . "</td>";
-                echo "<td>" . $row['complaint_type'] . "</td>";
-                echo "<td>" . $row['description'] . "</td>";
-                echo "<td>" . $row['status'] . "</td>";
-                echo "<td><a href='?delete=" . $row['complaint_id'] . "'>Delete</a></td>";
-                echo "</tr>";
-            }
-            
-            echo "</tbody>";
-            echo "</table>";
+    }
+
+    $complaintTable .= "</tbody></table>";
+
+    echo $complaintTable;
+}
+
+// Function to handle the form submission
+function handleFormSubmit($conn) {
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        // Get form values
+        $user_id = $_POST["user_id"];
+        $expert_id = $_POST["expert_id"];
+        $complaint_type = $_POST["complaint_type"];
+        $description = $_POST["description"];
+
+        // Insert new complaint into the database
+        $sql = "INSERT INTO complaints (user_id, expert_id, complaint_type, description, status) VALUES ('$user_id', '$expert_id', '$complaint_type', '$description', 'In Investigation')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Complaint submitted successfully.";
         } else {
-            echo "No complaints found.";
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
-        
-        $conn->close();
-    ?>
-    
-    <h2>File a Complaint</h2>
-    <form action="" method="post">
-        <label for="user_id">User ID:</label>
-        <input type="text" id="user_id" name="user_id" required><br>
-        
-        <label for="expert_id">Expert ID:</label>
-        <input type="text" id="expert_id" name="expert_id" required><br>
-        
-        <label for="complaint_type">Complaint Type:</label>
-        <select id="complaint_type" name="complaint_type" required>
-            <option value="Unsatisfied Expert's Feedback">Unsatisfied Expert's Feedback</option>
-            <option value="Wrongly Assigned Research Area">Wrongly Assigned Research Area</option>
-            <!-- Add more options as needed -->
-        </select><br>
-        
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
-        
-        <input type="submit" name="submit" value="Submit">
-    </form>
-</body>
-</html>
+    }
+}
+
+// Populate the complaint table on page load
+populateComplaintTable($conn);
+
+// Handle the form submission
+handleFormSubmit($conn);
+
+// Close the database connection
+$conn->close();
+?>
