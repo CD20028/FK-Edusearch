@@ -1,0 +1,113 @@
+  .content{
+    margin-bottom: 30px;
+  }
+  
+  .margin{
+    margin-left: 250px;
+  }
+  .heading{
+    background-color:  white;
+    height: 30px;
+    margin-left: 200px;
+  }
+  
+  .navbar{
+      background-color: rgb(226, 226, 226);
+  }
+  
+  .sidebar .position-sticky .list-group a{
+    background-color: rgb(84, 255, 175);
+  }
+  .sidebar .position-sticky .list-group .active{
+    background-color: rgb(84, 255, 175);
+    border-radius: 50px;
+    width: fit-content;
+  }
+  
+  .sidebar .position-sticky .list-group .hover {
+    background-color: rgb(137, 137, 137);
+  }
+
+
+  .sidebar .position-sticky div :hover {
+    background-color:  rgb(131, 136, 133);
+   
+   margin-top: 2%;
+   margin-bottom: 2%;
+    border-radius: 50px;
+    width: 100%;
+    
+    transition: ease-in-out;
+    transition-delay: 80ms;
+  }
+  /* top banner/navbar css*/
+  
+
+  /* Laptop Responsive CSS*/
+  @media (min-width: 991.98px) {
+      
+    }
+      /* Sidebar */
+      #logoump img{
+          margin-top: 100px;
+          width: 200px;
+          
+          margin-left: 10px;
+         }
+      .sidebar {
+        
+          position: fixed;
+          top: 1px;
+          bottom: 0;
+          background-color: rgb(84, 255, 175);
+          left: 0;
+          padding: 58px 0 0; /* Height of navbar */
+          box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+          width: 200px;
+          height: 200%;
+          z-index: 600;
+        }
+      
+        .sidebar .position-sticky .list-group .ripple .active{
+          background-color:  white;
+        }
+      
+        .sidebar .active {
+          border-radius: 5px;
+          box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+        }
+       
+        .sidebar-sticky {
+          position: relative;
+          top: 0;
+          height: calc(100vh - 48px);
+          padding-top: 0.5rem;
+          overflow-x: hidden;
+          overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        }
+        #profile img{
+          margin-top: 50px;
+          width: 200px;
+          
+          margin-left: 10px;
+         }
+
+         .divider {
+            height: 1px;
+            background-color: #000;
+            margin: 20px 0;
+          }
+
+       
+        /* Phone Responsive*/
+      @media screen and (max-width: 768px) {
+        .navbar{
+          margin-top: 48px;
+            
+            height: 48px;
+        
+        }
+        .sidebar .position-sticky .list-group a{
+          
+        }
+      }
