@@ -8,7 +8,7 @@ $description = $_POST['description'];
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "blog";
+$dbname = "fkedu";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
