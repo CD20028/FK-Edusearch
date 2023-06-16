@@ -46,4 +46,57 @@
 
   <script src="scripts.js"></script>
 </body>
+<?php
+$servername = "localhost";
+$username = "root"; // Replace with your MySQL username
+$password = ""; // Replace with your MySQL password
+$database = "fkedu"; // Replace with the name of your database
+
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Function to insert a new post
+function insertPost($title, $content) {
+    global $conn;
+    
+    $sql = "INSERT INTO posts (title, content) VALUES ('$title', '$content')";
+    
+    if ($conn->query($sql) === true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Function to insert a new comment
+function insertComment($postId, $content) {
+    global $conn;
+    
+    $sql = "INSERT INTO comments (post_id, content) VALUES ('$postId', '$content')";
+    
+    if ($conn->query($sql) === true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Function to insert a new like
+function insertLike($postId) {
+    global $conn;
+    
+    $sql = "INSERT INTO likes (post_id) VALUES ('$postId')";
+    
+    if ($conn->query($sql) === true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+?>
 </html>
