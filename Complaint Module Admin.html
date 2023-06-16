@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complaint Module Admin</title>
+    <link rel="stylesheet" href="Complaint Module.css">
+</head>
+<body>
+    <div class="container">
+        <h1>FK-EduSearch</h1>
+
+        <div class="topnav">
+            <a href="#manageC">Manage Report</a>
+            <a class="active" href="#manageR">Manage Complaint</a>
+            <a href="#manageE">Manage Experts</a>
+            <a href="#manageR">Manage Role</a>
+            <a href="#manageU">Manage User</a>
+          </div>
+                  
+        <div class="complaint-section">
+            <h2>Complaint List</h2>
+            <table id="complaintTable">
+                <thead>
+                    <tr>
+                        <th>Complaint ID</th>
+
+                        <th>User ID</th>
+                        <th>Expert ID</th>
+                        <th>Complaint Type</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Complaint rows will be added dynamically using JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="complaint-section">
+    <script src="Complaint Module.js"></script>
+</body>
+</html>
