@@ -11,9 +11,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
-// Close the database connection
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +50,8 @@ if ($result->num_rows > 0) {
 } else {
   echo "<tr><td colspan='5'>No posts found.</td></tr>";
 }
+// Close the database connection
+$conn->close();
 ?>
 
   </tbody>
