@@ -14,14 +14,14 @@ if ($conn->connect_error) {
 
 // Process the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $title = $_POST["title"];
-  $description = $_POST["description"];
+    $complaint_id = $_POST["complaint_id"];
+    $complaint_description = $_POST["complaint_description"];
 
   // Insert the post into the database
-  $sql = "INSERT INTO complaint (complaint_id, user_id,expert_id,complaint_description) VALUES ('$complaint_id','$user_id','$expert_id','$complaint_description')";
+  $sql = "INSERT INTO complaint (complaint_id, complaint_description) VALUES ('$complaint_id', '$complaint_description')";
 
   if ($conn->query($sql) === TRUE) {
-    echo "Complaint created successfully!";
+    echo "Post created successfully!";
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
@@ -30,53 +30,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close the database connection
 $conn->close();
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Complaint Module Admin</title>
-    <link rel="stylesheet" href="Complaint Module.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FK-EduSearch User Interface</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="topnav">
-        <a href="#manageC">Manage Report</a>
-        <a class="active" href="#manageR">Manage Complaint</a>
-        <a href="#manageE">Manage Experts</a>
-        <a href="#manageR">Manage Role</a>
-        <a href="#manageU">Manage User</a>
+  <h1>FK-Edusearch User Interface</h1>
 
-      <div class="container">
-        <h1>FK-EduSearch</h1>
-      
-      <div style="padding-right:16px">
-      <div style="padding-right:16px">
-            <label for="user_id">User ID:</label>
-            <input type="text" id="user_id" name="user_id" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="expert_id">Expert ID:</label>
-            <input type="text" id="expert_id" name="expert_id" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="complaint_type">Complaint Type:</label>
-            <select id="complaint_type" name="complaint_type" required>
-                <option value="Unsatisfied Expert's Feedback">Unsatisfied Expert's Feedback</option>
-                <option value="Wrongly Assigned Research Area">Wrongly Assigned Research Area</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" cols="50" required></textarea>
-        </div>
-        
-        <input type="submit" value="Submit" class="btn-submit">
-    </form>
-</div>
-</div>
+  <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+  <label for="complaint_id">complaint id:</label>
+  <input type="text" name="complaint_id" id="complaint_id" required><br>
 
-<script src="Complaint Module.js"></script>
+  <label for="complaint_description">Description:</label>
+  <textarea name="complaint_description" id="complaint_description" required></textarea><br>
+
+  <input type="submit" value="Create Post">
+</form>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
