@@ -17,7 +17,7 @@
     $dbname = "fkedu";
 
     // Create connection
-    $conn = new mysqli($servername, $username, $password, $fkedu);
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Check connection
     if ($conn->connect_error) {
