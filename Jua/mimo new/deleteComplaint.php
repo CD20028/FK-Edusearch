@@ -37,3 +37,4 @@ if ($conn->query($sql) === TRUE) {
 // Close the database connection
 $conn->close();
 ?>
+<a href="deleteComplaint.php?complaint_id=123">Delete Complaint</a>
