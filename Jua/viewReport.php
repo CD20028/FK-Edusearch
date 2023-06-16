@@ -5,29 +5,11 @@ $password = "";
 $dbname = "fkedu";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $fkedu);
 
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
-}
-
-// Fetch and display the posts
-$sql = "SELECT post_id, title, post_description FROM posts";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-  while ($row = $result->fetch_assoc()) {
-    echo "<tr>";
-    echo "<td>" . $row["post_id"] . "</td>";
-    echo "<td>" . $row["title"] . "</td>";
-    echo "<td>" . $row["post_description"] . "</td>";
-    echo "<td><a href='editPost.php?post_id=" . $row["post_id"] . "'>Edit</a></td>";
-    echo "<td><a href='delete_post.php?post_id=" . $row["post_id"] . "'>Delete</a></td>";
-    echo "</tr>";
-  }
-} else {
-  echo "<tr><td colspan='5'>No posts found.</td></tr>";
 }
 
 // Close the database connection
@@ -54,7 +36,25 @@ $conn->close();
     </tr>
   </thead>
   <tbody>
-    <!-- PHP code to fetch and display the posts will be added here -->
+  <?php // Fetch and display the posts
+$sql = "SELECT post_id, title, post_description FROM posts";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    echo "<td>" . $row["post_id"] . "</td>";
+    echo "<td>" . $row["title"] . "</td>";
+    echo "<td>" . $row["post_description"] . "</td>";
+    echo "<td><a href='editPost.php?post_id=" . $row["post_id"] . "'>Edit</a></td>";
+    echo "<td><a href='delete_post.php?post_id=" . $row["post_id"] . "'>Delete</a></td>";
+    echo "</tr>";
+  }
+} else {
+  echo "<tr><td colspan='5'>No posts found.</td></tr>";
+}
+?>
+
   </tbody>
 </table>
 </body></html>
