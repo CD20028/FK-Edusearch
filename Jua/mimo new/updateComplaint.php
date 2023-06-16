@@ -1,8 +1,7 @@
 <?php
-// Retrieve the form data
-$post_id = $_POST['post_id'];
-$title = $_POST['title'];
-$description = $_POST['description'];
+// Retrieve the complaint_id and complaint_description from the form submission
+$complaint_id = $_POST["complaint_id"];
+$complaint_description = $_POST["complaint_description"];
 
 // Perform the update
 $servername = "localhost";
@@ -18,15 +17,4 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Update the post in the database
-$sql = "UPDATE complaint SET complaint_id = '$complaint_id', complaint_description = '$complaint_description' WHERE complaint_id = $complaint_id";
-
-if ($conn->query($sql) === TRUE) {
-    echo "Post updated successfully!";
-} else {
-    echo "Error updating post: " . $conn->error;
-}
-
-// Close the database connection
-$conn->close();
-?>
+// Escape the complaint_id and complaint_description to prevent SQL injection

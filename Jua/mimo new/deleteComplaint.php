@@ -1,6 +1,12 @@
 <?php
-// Retrieve the post_id from the URL query parameters
-$post_id = $_GET['post_id'];
+// Check if the complaint_id is set in the URL query parameters
+if (!isset($_GET['complaint_id'])) {
+    echo "Error: complaint_id not specified in the URL.";
+    exit();
+}
+
+// Retrieve the complaint_id from the URL query parameters
+$complaint_id = $_GET['complaint_id'];
 
 // Perform the deletion
 $servername = "localhost";
@@ -16,16 +22,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Delete the post from the database
-$sql = "DELETE FROM complaint WHERE complaint_id = $complaint_id";
+// Escape the complaint_id to prevent SQL injection
+$complaint_id = mysqli_real_escape_string($conn, $complaint_id);
+
+// Delete the complaint from the database
+$sql = "DELETE FROM complaint WHERE complaint_id = '$complaint_id'";
 
 if ($conn->query($sql) === TRUE) {
-    echo "complete deleted successfully!";
+    echo "Complaint deleted successfully!";
 } else {
-    echo "Error deleting post: " . $conn->error;
+    echo "Error deleting complaint: " . $conn->error;
 }
 
 // Close the database connection
 $conn->close();
 ?>
-
