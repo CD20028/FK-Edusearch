@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "blog";
+$dbname = "fkedu";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
     echo "<td>" . $row["post_id"] . "</td>";
     echo "<td>" . $row["title"] . "</td>";
     echo "<td>" . $row["post_description"] . "</td>";
-    echo "<td><a href='edit_post.php?post_id=" . $row["post_id"] . "'>Edit</a></td>";
+    echo "<td><a href='editPost.php?post_id=" . $row["post_id"] . "'>Edit</a></td>";
     echo "<td><a href='delete_post.php?post_id=" . $row["post_id"] . "'>Delete</a></td>";
     echo "</tr>";
   }
