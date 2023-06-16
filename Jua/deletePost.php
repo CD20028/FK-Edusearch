@@ -6,10 +6,10 @@ $post_id = $_GET['post_id'];
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "blog";
+$dbname = "fkedu";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $fkedu);
 
 // Check connection
 if ($conn->connect_error) {

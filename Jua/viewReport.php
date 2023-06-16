@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
     echo "<td>" . $row["title"] . "</td>";
     echo "<td>" . $row["post_description"] . "</td>";
     echo "<td><a href='editPost.php?post_id=" . $row["post_id"] . "'>Edit</a></td>";
-    echo "<td><a href='delete_post.php?post_id=" . $row["post_id"] . "'>Delete</a></td>";
+    echo "<td><a href='deletePost.php?post_id=" . $row["post_id"] . "'>Delete</a></td>";
     echo "</tr>";
   }
 } else {
