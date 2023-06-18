@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FK-EduSearch User Interface</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <h1>FK-Edusearch User Interface</h1>

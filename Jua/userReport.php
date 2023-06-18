@@ -35,11 +35,24 @@ $conn->close();
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FK-EduSearch User Interface</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <img src="Ump.png" alt="Logo" width="50" height="80">
+  <img src="fkLogo.png" alt="Logo" width="150" height="100">
+  <title>Create Posts</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <h1>FK-Edusearch User Interface</h1>
+  <h1>Create Posts</h1>
+
+  <div class="topnav">
+    <a class="active" href="a3">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+  </div>
+
+  <div style="padding-left:16px">
+
+  </div>
 
   <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
   <label for="title">Title:</label>
