@@ -90,9 +90,9 @@
 </div>
           
         <div class="float-buttons">
-          <button class="float-button ">Create</button>
-          <button class="float-button grey">Edit</button>
-          <button class="float-button red ">Delete</button>
+          <button id="createButton" class="float-button ">Create</button>
+          <button  class="float-button grey">Edit</button>
+          <button id="deleteButton" class="float-button red ">Delete</button>
         </div>
 
       
@@ -120,7 +120,7 @@
       <!--Side navbar-->
                 <!-- Sidebar -->
                 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
-                    <div class="" id="logoump"><img src ="assets/logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
+                    <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
                         <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
@@ -159,6 +159,28 @@
 
       <!--Side navbar-->
 
+      <script>
+        // Get a reference to the "Create" button
+        var createButton = document.getElementById("createButton");
+      
+        // Add a click event listener to the button
+        createButton.addEventListener("click", function() {
+          // Redirect the user to the next page
+          window.location.href = "AddQues.html";
+        });
+      </script>
+
+<script>
+  // Get a reference to the "Create" button
+  var createButton = document.getElementById("deleteButton");
+
+  // Add a click event listener to the button
+  createButton.addEventListener("click", function() {
+    // Redirect the user to the next page
+    window.location.href = "editQues.html";
+  });
+</script>
+
 
       <!--Scripting link for bootstrap and mdb-->
    
@@ -167,5 +189,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="/bootstrap/js/mdb.min.js"></script>
     
+
+
+
 </body>
 </html>

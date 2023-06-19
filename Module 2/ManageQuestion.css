@@ -44,7 +44,11 @@
   .float-buttons {
     text-align: center;
   }
-  
+
+  .delete-button-cell {
+    width: 10px; /* Adjust the width as per your preference */
+}
+
   .float-button {
     margin-top: 50px;
     margin-left: 50px;
