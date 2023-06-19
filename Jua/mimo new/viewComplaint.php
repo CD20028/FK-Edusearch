@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "fkedu";
+$dbname = "fk-edu";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -41,8 +41,8 @@ if ($result->num_rows > 0) {
     echo "<tr>";
     echo "<td>" . $row["complaint_id"] . "</td>";
     echo "<td>" . $row["complaint_description"] . "</td>";
-    echo "<td><a href='editPost.php?complaint_id=" . $row["complaint_id"] . "'>Edit</a></td>";
-    echo "<td><a href='deletePost.php?complaint_id=" . $row["complaint_id"] . "'>Delete</a></td>";
+    echo "<td><a href='editComplaint.php?complaint_id=" . $row["complaint_id"] . "'>Edit</a></td>";
+    echo "<td><a href='deleteComplaint.php?complaint_id=" . $row["complaint_id"] . "'>Delete</a></td>";
     echo "</tr>";
   }
 } else {
