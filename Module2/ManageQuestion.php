@@ -53,7 +53,7 @@
 
       <div class="heading">
         <div class="container-fluid" style="margin:10px">
-          <a class="navbar-brand" href="#">MANAGE QUESTION</a>
+          <a class="navbar-brand" href="#"><strong>MANAGE QUESTION</strong></a>
         </div>
     </div>
 
@@ -67,25 +67,42 @@
           <!-- Table -->
    <div class="table-and-buttons">         
 <table class="table table-sm">
+
   <thead>
     <tr>
+      <th>ID</th>
       <th>Question</th>
       <th>Research Area</th>
       <th>Status</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td>Row 1, Cell 1</td>
-      <td>Row 1, Cell 2</td>
-      <td>Row 1, Cell 3</td>
-    </tr>
-    <tr>
-      <td>Row 2, Cell 1</td>
-      <td>Row 2, Cell 2</td>
-      <td>Row 2, Cell 3</td>
-    </tr>
-  </tbody>
+  <?php
+  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  if ($conn-> connect_error){
+    die("Connection failed:".$conn-> connect_error);
+  } 
+  $sql = "SELECT question, research, status,id_quest from quesdb ";
+  $result =$conn-> query($sql);
+
+  if ($result-> num_rows >0){
+    while ($row = $result-> fetch_assoc()){
+      echo "<tr>";
+      echo "<td>" . $row["id_quest"] . "</td>";
+      echo "<td>" . $row["question"] . "</td>";
+      echo "<td>" . $row["research"] . "</td>";
+      echo "<td>" . $row["status"] . "</td>";
+      echo "</tr>";
+    }
+    echo "</table>";
+  }
+  else {
+   echo "0 result";
+
+  }
+  $conn-> close();
+  ?>
+
+
 </table>
 </div>
           
@@ -95,11 +112,6 @@
           <button id="deleteButton" class="float-button red ">Delete</button>
         </div>
 
-      
-
-      </div>
-      </div>
-      
     
  
 
@@ -126,7 +138,7 @@
                         <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
-                        <a href="ManageQuestion.html" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
                         ><span>Manage Question</span>
                       </a>
                         <a href="ManageProfile.html" class="list-group-item list-group-item-action py-2 ripple "
@@ -135,27 +147,7 @@
                       </div>
                     </div>
                   </nav>
-                  <!-- Sidebar -->
-
-                <!-- Sidebar toggle responsive -->
-                  <!-- Container wrapper -->
-                  <div class="container-fluid">
-                    <!-- Toggle button -->
-                    <button
-                      class="navbar-toggler"
-                      type="button"
-                      data-mdb-toggle="collapse"
-                      data-mdb-target="#sidebarMenu"
-                      aria-controls="sidebarMenu"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation"
-                    >
-                      <i class="fas fa-bars"></i>
-                    </button>
-                  </div>
-                </nav>
-
-              <!-- Sidebar toggle responsive -->
+               
 
       <!--Side navbar-->
 
@@ -177,7 +169,7 @@
   // Add a click event listener to the button
   createButton.addEventListener("click", function() {
     // Redirect the user to the next page
-    window.location.href = "editQues.html";
+    window.location.href = "editQues.php";
   });
 </script>
 

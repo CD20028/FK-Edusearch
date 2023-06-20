@@ -49,6 +49,13 @@
     width: 10px; /* Adjust the width as per your preference */
 }
 
+.float-buttonsAdd {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+
+
   .float-button {
     margin-top: 50px;
     margin-left: 50px;

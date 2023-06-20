@@ -1,18 +1,26 @@
 <?php
 require 'connection.php';
 if(isset($_POST["submit"])){
-  $question_post =$_POST["question"];
-  $research_area =$_POST["researchArea"];
+  $question =$_POST["question"];
+  $research =$_POST["researchArea"];
   $status =$_POST["status"];
 
-  $query = "INSERT INTO question_database VALUES('','$question_post','$research_area','$status') ";
+  $query = "INSERT INTO quesdb VALUES('$question','$research','$status','$id_quest') ";
   mysqli_query($conn,$query);
   echo
   "
-  <script>  alert('Question have been created !');  </script>
+  <script>  alert('Question have been created !'); 
+  window.location.href = 'ManageQuestion.php';
+  </script>
   ";
 
 
+}
+
+if(isset($_POST["cancel"])){
+  echo "<script>
+          window.location.href = 'ManageQuestion.php';
+        </script>";
 }
 
 ?>
@@ -74,7 +82,7 @@ if(isset($_POST["submit"])){
 
       <div class="heading">
         <div class="container-fluid" style="margin:10px">
-          <a class="navbar-brand" href="#">MANAGE QUESTION</a>
+          <a class="navbar-brand" href="#"><strong>MANAGE QUESTION</strong></a>
         </div>
     </div>
 
@@ -101,22 +109,22 @@ if(isset($_POST["submit"])){
       <td><input type="text" name="question" placeholder="Enter question" > </td>
       <td> <input type="text" name="researchArea" placeholder="Enter research area" ></td>
       <td><input type="text" name="status" placeholder="Enter status" ></td>
-   </form>
-    </tr>
-  </tbody>
-</table>
-</div>
-          
-        <div class="float-buttons">
-         <button id="cancelButton" class="float-button red ">Cancel</button>
+      </tr>
+      </tbody>
+      </table>
+  </div>
+
+      <div class="float-buttons text-center">
+        <button type="cancel" class="float-button red " name="cancel">Cancel</button>
           <button type="submit" class="float-button " name="submit">Save</button>
           
-        </div>
+        </div> 
 
-      
 
-      </div>
-      </div>
+   </form>
+
+  
+
       
     
  
@@ -153,41 +161,10 @@ if(isset($_POST["submit"])){
                       </div>
                     </div>
                   </nav>
-                  <!-- Sidebar -->
-
-                <!-- Sidebar toggle responsive -->
-                  <!-- Container wrapper -->
-                  <div class="container-fluid">
-                    <!-- Toggle button -->
-                    <button
-                      class="navbar-toggler"
-                      type="button"
-                      data-mdb-toggle="collapse"
-                      data-mdb-target="#sidebarMenu"
-                      aria-controls="sidebarMenu"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation"
-                    >
-                      <i class="fas fa-bars"></i>
-                    </button>
-                  </div>
-                </nav>
-
-              <!-- Sidebar toggle responsive -->
-
-      <!--Side navbar-->
+         
 
 
-      <script>
-        // Get a reference to the "Create" button
-        var createButton = document.getElementById("cancelButton");
-      
-        // Add a click event listener to the button
-        createButton.addEventListener("click", function() {
-          // Redirect the user to the next page
-          window.location.href = "ManageQuestion.html";
-        });
-      </script>
+     
 
       <!--Scripting link for bootstrap and mdb-->
    

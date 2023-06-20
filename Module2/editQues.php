@@ -53,7 +53,7 @@
 
       <div class="heading">
         <div class="container-fluid" style="margin:10px">
-          <a class="navbar-brand" href="#">MANAGE QUESTION</a>
+          <a class="navbar-brand" href="#"><strong>MANAGE QUESTION</strong></a>
         </div>
     </div>
 
@@ -69,35 +69,46 @@
 <table class="table table-sm">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Question</th>
       <th>Research Area</th>
       <th>Status</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <td>Row 1, Cell 1</td>
-      <td>Row 1, Cell 2</td>
-      <td>Row 1, Cell 3</td>
-      <td class="delete-button-cell">
-      <button class="btn btn-danger delete-button" onclick="deleteQuestion(this)">Delete</button>
-    </td>
-    </tr>
-    <tr>
-      <td>Row 2, Cell 1</td>
-      <td>Row 2, Cell 2</td>
-      <td>Row 2, Cell 3</td>
-      <td class="delete-button-cell">
-        <button class="btn btn-danger delete-button" onclick="deleteQuestion(this)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
+  <?php
+  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  if ($conn-> connect_error){
+    die("Connection failed:".$conn-> connect_error);
+  } 
+  $sql = "SELECT question, research, status,id_quest from quesdb ";
+  $result =$conn-> query($sql);
+
+  if ($result-> num_rows >0){
+    while ($row = $result-> fetch_assoc()){
+      echo "<tr>";
+      echo "<td>" . $row["id_quest"] . "</td>";
+      echo "<td>" . $row["question"] . "</td>";
+      echo "<td>" . $row["research"] . "</td>";
+      echo "<td>" . $row["status"] . "</td>";
+      echo "<td><button class='btn btn-danger' onclick='deleteQuestion(" . $row["id_quest"] . ")'>Delete</button></td>";
+
+      echo "</tr>";
+    }
+    echo "</table>";
+  }
+  else {
+   echo "0 result";
+
+  }
+  $conn-> close();
+  ?>
+
+
 </table>
 </div>
           
         <div class="float-buttons">
             <button id="cancelButton" class="float-button red ">Cancel</button>
-            <button class="float-button ">Save</button>
         </div>
 
       
@@ -131,7 +142,7 @@
                         <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
-                        <a href="ManageQuestion.html" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
                         ><span>Manage Question</span>
                       </a>
                         <a href="ManageProfile.html" class="list-group-item list-group-item-action py-2 ripple "
@@ -165,20 +176,25 @@
       <!--Side navbar-->
 
       <script>
-        // Function to delete the selected question
-        function deleteQuestion(button) {
-            // Get the parent row of the delete button
-            var row = button.parentNode.parentNode;
+    function deleteQuestion(id_quest) {
+        var confirmDelete = confirm("Are you sure you want to delete this question?");
+        if (confirmDelete) {
+            // Send an AJAX request to delete the question from the database
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "delete_question.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // If the deletion was successful, remove the row from the table
+                    window.location.href = "ManageQuestion.php";
+                }
+            };
+            xhr.send("id_quest=" + id_quest);
+            
 
-            // Confirm the deletion
-            var confirmDelete = confirm("Are you sure you want to delete this question?");
-
-            // If confirmed, remove the row
-            if (confirmDelete) {
-                row.remove();
-            }
         }
-    </script>
+    }
+</script>
 
 <script>
     // Get a reference to the "Create" button
@@ -187,7 +203,7 @@
     // Add a click event listener to the button
     createButton.addEventListener("click", function() {
       // Redirect the user to the next page
-      window.location.href = "ManageQuestion.html";
+      window.location.href = "ManageQuestion.php";
     });
   </script>
 
