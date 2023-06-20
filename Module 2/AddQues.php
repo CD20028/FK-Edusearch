@@ -1,3 +1,24 @@
+<?php
+require 'connection.php';
+if(isset($_POST["submit"])){
+  $question_post =$_POST["question"];
+  $research_area =$_POST["researchArea"];
+  $status =$_POST["status"];
+
+  $query = "INSERT INTO question_database VALUES('','$question_post','$research_area','$status') ";
+  mysqli_query($conn,$query);
+  echo
+  "
+  <script>  alert('Question have been created !');  </script>
+  ";
+
+
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,9 +97,11 @@
   </thead>
   <tbody>
     <tr>
+        <form class="" action="" method="post" autocomplete="off">
       <td><input type="text" name="question" placeholder="Enter question" > </td>
       <td> <input type="text" name="researchArea" placeholder="Enter research area" ></td>
       <td><input type="text" name="status" placeholder="Enter status" ></td>
+   </form>
     </tr>
   </tbody>
 </table>
@@ -86,7 +109,7 @@
           
         <div class="float-buttons">
          <button id="cancelButton" class="float-button red ">Cancel</button>
-          <button class="float-button ">Save</button>
+          <button type="submit" class="float-button " name="submit">Save</button>
           
         </div>
 
