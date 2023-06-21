@@ -22,6 +22,17 @@ if ($conn->connect_error) {
 </head>
 <body>
   <h1>FK-Edusearch User Interface</h1>
+  <div class="topnav">
+    <a href="#ManageComplaint">Manage Complaint</a>
+    <a class="active" href="#ManageReport">Manage Report</a>
+    <a href="#ManageExpert">Manage Expert</a>
+    <a href="#ManageRole">Manage User</a>
+  </div>
+
+  <div style="padding-left:16px">
+
+  </div>
+
 <table>
   <thead>
     <tr>
