@@ -1,0 +1,154 @@
+  
+  h1,h3,h4,h5,h6,p {
+    font-family: "Raleway", sans-serif;
+  }
+
+  body, html {
+    height: 100%;
+    line-height: 1.8;
+    background-color: #007973;
+  } 
+
+/* Full height image header */
+  .bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("picture1.jpg");
+    min-height: 90%;
+  }
+  #serviceInfo {
+        box-shadow: 0 10px 20px 0 gray;
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: "Raleway";
+        border-radius: 10px;
+        padding-bottom: 5px;
+        background-color:#CDAC79;
+        letter-spacing: 0.5px;
+  }
+  table{
+    width: 100%;
+  }
+  td{
+    padding-bottom: 30px;
+  }
+  #service {
+        box-shadow: 0 10px 20px 0 gray;
+        background-color:#634038;
+        border: none;
+        max-width: 1900px;
+        margin: auto;
+        text-align: center;
+        font-family: "cursive";
+        padding-top: 2px;
+        padding-bottom: 10px;
+        color: white;
+        border-radius: 5px;
+        letter-spacing: 0.7px;
+  }
+  .carousel-inner img {
+    width: 100%; /* Set width to 100% */
+    margin: auto;
+  }
+  #horizontolNav{
+    height: 66px; 
+    padding-top: 20px; 
+    font-size:16px; 
+    text-decoration: none; 
+    letter-spacing: 0.7px;
+  }
+  #logo{
+    height: 50px;
+    margin: 0;
+  }
+  #serviceTitle{
+    font-size: 130%;
+    font-family: Courier New;
+  }
+  #imgService{
+    height: 90px;
+    width: 150px;
+    border-radius: 10px;
+  }
+  #about{
+    padding:25px 16px; 
+    font-family: Arial; 
+    letter-spacing: 0.5px;
+  }
+
+  /*CSS sidebar*/
+  .sidebar {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 66px;
+    left: 0;
+    background-color: #CDAC79;
+    overflow-x: hidden;
+    padding-top: 16px;
+  }
+  
+  .sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+  }
+  
+  .sidebar a:hover {
+    color: white;
+  }
+  
+  .main {
+    margin-left: 260px; /* Same as the width of the sidenav */
+    padding: 20px 10px;
+    padding-top: 66px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+
+  /*module2 css*/
+  #locationTable{
+    margin: auto;
+  }
+
+  #locationT {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #634038;
+  }
+
+  #locationInfo {
+    box-shadow: 0 10px 20px 0 gray;
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    border-radius: 10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color:#8E532D;
+    letter-spacing: 0.5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+  }
+
+  /*module1 css*/
+  .uInfo {
+    padding-top: 20px;
+    box-shadow: 0 12px 20px 0 rgba(0,0,0,0.6),0 17px 50px 0 rgba(0,0,0,0.6);
+    
+  }
+
+  .uInfo, .uTd, .uTh, .uTr {
+    text-align: center;
+    border:2px solid;
+    color: black;
+  }
+
+  
+  

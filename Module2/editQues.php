@@ -85,13 +85,14 @@
 
   if ($result-> num_rows >0){
     while ($row = $result-> fetch_assoc()){
+
       echo "<tr>";
       echo "<td>" . $row["id_quest"] . "</td>";
       echo "<td>" . $row["question"] . "</td>";
       echo "<td>" . $row["research"] . "</td>";
       echo "<td>" . $row["status"] . "</td>";
       echo "<td><button class='btn btn-danger' onclick='editQuestion(" . $row["id_quest"] . ")'>Edit</button></td>";
-
+      
       echo "</tr>";
     }
     echo "</table>";
@@ -179,11 +180,14 @@
     function editQuestion(id_quest) {
         var confirmEdit = confirm("Are you sure you want to edit this question?");
         if (confirmEdit) {
-      window.location.href = "widih.php";
-          
-        }
+
+          var confirmEdit = confirm("Are you sure you want to edit this question?");
+    if (confirmEdit) {
+        window.location.href = "widih.php?id_quest=" + id_quest;
     }
+}
 </script>
+
 
 <script>
     // Get a reference to the "Create" button

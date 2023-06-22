@@ -1,28 +1,17 @@
 <?php
 require 'connection.php';
 
-if (isset($_POST["submit"])) {
-  $question = $_POST["question"];
-  $research = $_POST["research"];
-  $status = $_POST["status"];
-  $id_quest = $_POST["id_quest"];
-
-  $query = "UPDATE quesdb SET question='$question', research='$research', status='$status' WHERE id_quest='$id_quest'";
-  mysqli_query($conn, $query);
-
-  if (mysqli_affected_rows($conn) > 0) {
-    echo "<script>alert('Question has been updated!'); window.location.href = 'ManageQuestion.php';</script>";
-  } else {
-    echo "<script>alert('Failed to update question.'); window.location.href = 'ManageQuestion.php';</script>";
-  }
-}
-
 $conn = mysqli_connect("localhost", "root", "", "fk_edusearch");
 if ($conn->connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
 
-$id_quest = $_GET["id_quest"]; // Assuming the id_quest is passed via GET parameter
+$id_quest = isset($_GET["id_quest"]) ? $_GET["id_quest"] : null; // Assuming the id_quest is passed via GET parameter
+
+if ($id_quest === null) {
+  echo "Question ID not specified.";
+  exit; // or handle the error as per your requirement
+}
 
 $query = "SELECT question, research, status FROM quesdb WHERE id_quest='$id_quest'";
 $result = mysqli_query($conn, $query);
@@ -37,6 +26,20 @@ $question = $row['question'];
 $research = $row['research'];
 $status = $row['status'];
 
+if (isset($_POST["submit"])) {
+  $question = $_POST["question"];
+  $research = $_POST["research"];
+  $status = $_POST["status"];
+
+  $query = "UPDATE quesdb SET question='$question', research='$research', status='$status' WHERE id_quest='$id_quest'";
+  mysqli_query($conn, $query);
+
+  if (mysqli_affected_rows($conn) > 0) {
+    echo "<script>alert('Question has been updated!'); window.location.href = 'ManageQuestion.php';</script>";
+  } else {
+    echo "<script>alert('Failed to update question.'); window.location.href = 'ManageQuestion.php';</script>";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -195,6 +198,16 @@ $status = $row['status'];
       window.location.href = 'ManageQuestion.php';
     });
   </script>
+
+
+<script>
+    // Retrieve the id_quest parameter from the URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var id_quest = urlParams.get('id_quest');
+  
+    // Use the id_quest as needed
+    console.log(id_quest); // Display the id_quest in the console
+</script>
 
 </body>
 

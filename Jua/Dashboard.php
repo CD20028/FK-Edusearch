@@ -236,7 +236,7 @@ function changeInterval(interval) {
                 'rgba(255, 165, 0, 1)', // Orange
                 'rgba(128, 0, 128, 1)', // Purple
             ],
-            borderWidth: 1
+            borderWidth: 0.5
         }]
     };
 
