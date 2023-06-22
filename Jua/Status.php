@@ -104,8 +104,8 @@
 
 
 <ul class="navbar">
-<li><a href="MainPage.php">Home</a></li>
-    <li><a href="DataList.php">Data</a></li>
+<li><a href="Dashboard.php">Home</a></li>
+    <li><a href="Data.php">Data</a></li>
     <li><a href="Status.php">Status</a></li>
     <li><a href="User.php">User List</a></li>
     <li><a href="ComplaintListPage.php">Complaint</a></li>
@@ -139,8 +139,8 @@
 
                 // Prepare and execute the SQL query
                 $sql = "SELECT COUNT(*) AS total_InInvestigation
-                FROM complaints
-                WHERE status = 'investigation'";
+                FROM posts
+                WHERE statuss = 'InInvestigation'";
                 $result = $conn->query($sql);
 
                 // Check if there is a row returned
@@ -180,8 +180,8 @@
 
                 // Prepare and execute the SQL query
                 $sql = "SELECT COUNT(*) AS total_OnHold
-                FROM complaints
-                WHERE status = 'onhold'";
+                FROM posts
+                WHERE statuss = 'OnHold'";
                 $result = $conn->query($sql);
 
                 // Check if there is a row returned
@@ -221,8 +221,8 @@
 
                 // Prepare and execute the SQL query
                 $sql = "SELECT COUNT(*) AS total_Resolved
-                FROM complaints
-                WHERE status = 'resolved'";
+                FROM posts
+                WHERE statuss = 'Resolved'";
                 $result = $conn->query($sql);
 
                 // Check if there is a row returned
