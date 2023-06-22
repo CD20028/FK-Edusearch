@@ -7,7 +7,7 @@ const reports = [
     title: 'Inappropriate Content',
     type: 'Content',
     description: 'A user posted offensive content.',
-    reportProcess: 'In Investigation',
+    reportProcess: 'InInvestigation',
   },
   {
     date: '2023-06-14',

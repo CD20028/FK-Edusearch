@@ -71,7 +71,7 @@
     // Retrieve the post_id from the URL query parameters
     $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : null;
     $statuss = isset($_POST['statuss']) ? $_POST['statuss'] : null;
-    
+
     // Retrieve post details from the database based on the post_id
     $servername = "localhost";
     $username = "root";
@@ -118,8 +118,8 @@
             </div>
             <div class="form-group">
                 <select id="statuss" name="statuss" required>
-                    <option value="In Investigation" <?php echo $statuss === 'In Investigation' ? 'selected' : ''; ?>>In Investigation</option>
-                    <option value="On Hold" <?php echo $statuss === 'On Hold' ? 'selected' : ''; ?>>On Hold</option>
+                    <option value="InInvestigation" <?php echo $statuss === 'InInvestigation' ? 'selected' : ''; ?>>In Investigation</option>
+                    <option value="OnHold" <?php echo $statuss === 'OnHold' ? 'selected' : ''; ?>>On Hold</option>
                     <option value="Resolved" <?php echo $statuss === 'Resolved' ? 'selected' : ''; ?>>Resolved</option>
                 </select>    
             </div>
