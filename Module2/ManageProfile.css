@@ -53,10 +53,25 @@
     justify-content: flex-start;
 }
 
+input[type="text"] {
+  width: 300px; /* Adjust the width value as needed */
+}
+
   .float-button {
     margin-top: 50px;
     margin-left: 50px;
     background-color: rgb(1, 179, 87);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+
+  }
+
+  .float-button2 {
+    margin-top: 50px;
+    margin-left: 50px;
+    background-color: rgb(255, 0, 0);
     color: black;
     border: none;
     padding: 10px 20px;

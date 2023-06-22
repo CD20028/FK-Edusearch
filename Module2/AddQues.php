@@ -152,10 +152,10 @@ if(isset($_POST["cancel"])){
                         <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
-                        <a href="ManageQuestion.html" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
                         ><span>Manage Question</span>
                       </a>
-                        <a href="ManageProfile.html" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="ManageProfile.php" class="list-group-item list-group-item-action py-2 ripple "
                           ><span>Manage Profile</span>
                         </a>
                       </div>
