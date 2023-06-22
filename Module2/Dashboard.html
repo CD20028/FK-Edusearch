@@ -53,29 +53,41 @@
 
       <div class="heading">
         <div class="container-fluid" style="margin:10px">
-          <a class="navbar-brand" href="#"><strong>TOPIC</strong></a>
+          <h2 class="navbar-brand" href="Dashboard.html">TOPIC</h2>
         </div>
     </div>
-
+<br>
+<br>
 
       <!--Content-->
       <div class="content">
         <div class="margin"> 
-            <div class="divider"></div>
+
+          
 
               <!-- First content section -->
+              
             <div class="" id="profile"> <img src="profile.jpg" alt="Image" style="float: left; margin-right: 10px; border-radius: 50%; width: 150px; height: 150px;">
             </div>
+          
 
-            <div class="divider"></div>
+          <th>Comment</th>
+                <form action="edit_question.php" method="POST">
+                    <div>
+                        <label for="question"></label>
+                        <textarea name="question" id="question" rows="4" cols="50"></textarea>
+                    </div>
+                    <input type="hidden" name="id_quest" value="<?php echo $id_quest; ?>">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
 
- <!-- Second content section -->
-          <div class="" id="profile"> <img src="profile.jpg" alt="Image" style="float: left; margin-right: 10px; border-radius: 50%; width: 150px; height: 150px;">
-          </div>
-
-      </div>
+           
       </div>
       
+      </div>
+     
+
     
  
 
@@ -117,17 +129,7 @@
                   <!-- Container wrapper -->
                   <div class="container-fluid">
                     <!-- Toggle button -->
-                    <button
-                      class="navbar-toggler"
-                      type="button"
-                      data-mdb-toggle="collapse"
-                      data-mdb-target="#sidebarMenu"
-                      aria-controls="sidebarMenu"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation"
-                    >
-                      <i class="fas fa-bars"></i>
-                    </button>
+                
                   </div>
                 </nav>
 
