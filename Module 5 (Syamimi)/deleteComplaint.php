@@ -1,10 +1,4 @@
 <?php
-// Check if the complaint_id is set in the URL query parameters
-if (!isset($_GET['complaint_id'])) {
-    echo "Error: complaint_id not specified in the URL.";
-    exit();
-}
-
 // Retrieve the complaint_id from the URL query parameters
 $complaint_id = $_GET['complaint_id'];
 

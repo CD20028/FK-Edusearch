@@ -14,13 +14,19 @@ if ($conn->connect_error) {
 
 // Process the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_POST["user_id"];
-    $expert_id = $_POST["expert_id"];
-    $complaint_type = $_POST["complaint_type"];
-    $complaint_description = $_POST["complaint_description"];
+  $user_id = $_POST["user_id"];
+  $expert_id = $_POST["expert_id"];
+  $complaint_type = $_POST["complaint_type"];
+  $complaint_description = $_POST["complaint_description"];
+
+  // Escape special characters in the values
+  $user_id = mysqli_real_escape_string($conn, $user_id);
+  $expert_id = mysqli_real_escape_string($conn, $expert_id);
+  $complaint_type = mysqli_real_escape_string($conn, $complaint_type);
+  $complaint_description = mysqli_real_escape_string($conn, $complaint_description);
 
   // Insert the post into the database
-  $sql = "INSERT INTO complaint (complaint_user_id, expert_id, complaint_type, complaint_description) VALUES ('$complaint_id', '$expert_id', '$complaint_type', '$complaint_description')";
+  $sql = "INSERT INTO complaint (complaint_id, user_id, complaint_type, complaint_description) VALUES ('$user_id', '$expert_id', '$complaint_type', '$complaint_description')";
 
   if ($conn->query($sql) === TRUE) {
     echo "Post created successfully!";
@@ -32,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close the database connection
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
@@ -50,8 +57,9 @@ $conn->close();
   <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
   <div style="padding-right:16px">
       <div style="padding-right:16px">
-            <label for="user_id">User ID:</label>
-            <input type="text" id="user_id" name="user_id" required>
+
+  <label for="user_id">User ID:</label>
+  <input type="text" id="user_id" name="user_id" required>
         </div>
 
   <label for="expert_id">Expert ID:</label>
@@ -68,9 +76,10 @@ $conn->close();
 
   <label for="complaint_description">Description:</label>
   <textarea name="complaint_description" id="complaint_description" required></textarea><br>
+  
   <input type="submit" value="Create Post" class="btn-submit">
 </form>
 
-  <script src="scripts.js"></script>
+  <script src="scriptComplaint.js"></script>
 </body>
 </html>

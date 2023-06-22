@@ -1,6 +1,8 @@
 <?php
 // Retrieve the complaint_id and complaint_description from the form submission
 $complaint_id = $_POST["complaint_id"];
+$expert_id = $_POST["expert_id"];
+$complaint_type = $_POST["complaint_type"];
 $complaint_description = $_POST["complaint_description"];
 
 // Perform the update

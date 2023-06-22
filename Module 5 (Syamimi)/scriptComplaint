@@ -18,6 +18,13 @@ const complaints = [
     }
 ];
 
+// Function to auto-generate date and time
+function generateDateTime() {
+    var currentDateTime = new Date();
+    var formattedDateTime = currentDateTime.toLocaleString();
+    document.getElementById("date_time").value = formattedDateTime;
+                 }
+
 // Function to populate the complaint table
 function populateComplaintTable() {
     const complaintTable = document.getElementById("complaintTable");
@@ -41,6 +48,9 @@ function populateComplaintTable() {
         complaintTable.querySelector("tbody").appendChild(row);
     });
 }
+
+// Call the function to generate date and time when the form is loaded
+window.onload = generateDateTime;
 
 // Function to handle the form submission
 function handleFormSubmit(event) {

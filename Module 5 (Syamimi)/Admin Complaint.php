@@ -83,7 +83,7 @@ if ($conn->connect_error) {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 10px; /* Adjust as needed */
+            margin: 100px; /* Adjust as needed */
         }
 
         table {
@@ -113,10 +113,10 @@ if ($conn->connect_error) {
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FK-EduSearch Admin Interface</title>
-  <link rel="stylesheet" type="text/css" href="stylesComplaint.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <div class="container">
+
   <img src="Ump.png" alt="Ump.png" width="70" height="50">
   <img src="fkLogo.png" alt="Fk-edu Logo" width="70" height="50">
   <ul class="navbar">
@@ -135,7 +135,6 @@ if ($conn->connect_error) {
 <table style="width:100%">
   <thead>
     <tr>
-      <th>Complaint ID</th>
       <th>User ID</th>
       <th>Expert ID</th>
       <th>Complaint Type</th>
@@ -145,14 +144,13 @@ if ($conn->connect_error) {
   </thead>
   <tbody>
   <?php // Fetch and display the posts
-$sql = "SELECT complaint_id, user_id, expert_id, complaint_type, complaint_description FROM complaint";
+$sql = "SELECT complaint_id, expert_id, complaint_type, complaint_description FROM complaint";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     echo "<tr>";
     echo "<td>" . $row["complaint_id"] . "</td>";
-    echo "<td>" . $row["user_id"] . "</td>";
     echo "<td>" . $row["expert_id"] . "</td>";
     echo "<td>" . $row["complaint_type"] . "</td>";
     echo "<td>" . $row["complaint_description"] . "</td>";
