@@ -14,13 +14,13 @@ if ($conn->connect_error) {
 
 // Process the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $complaint_id = $_POST["complaint_id"];
+    $user_id = $_POST["user_id"];
     $expert_id = $_POST["expert_id"];
     $complaint_type = $_POST["complaint_type"];
     $complaint_description = $_POST["complaint_description"];
 
   // Insert the post into the database
-  $sql = "INSERT INTO complaint (complaint_id, expert_id, complaint_type, complaint_description) VALUES ('$complaint_id', '$expert_id', 'complaint_type', '$complaint_description')";
+  $sql = "INSERT INTO complaint (complaint_user_id, expert_id, complaint_type, complaint_description) VALUES ('$complaint_id', '$expert_id', '$complaint_type', '$complaint_description')";
 
   if ($conn->query($sql) === TRUE) {
     echo "Post created successfully!";
