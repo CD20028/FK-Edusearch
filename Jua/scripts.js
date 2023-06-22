@@ -13,6 +13,15 @@ const reports = [
   { id: 2, type: "inappropriate-content", description: "Offensive language used in a post" },
   { id: 3, type: "bug", description: "Error when uploading a file" },
 ];
+// Function to auto-generate date and time
+function generateDateTime() {
+  var currentDateTime = new Date();
+  var formattedDateTime = currentDateTime.toLocaleString();
+  document.getElementById("postDateTime").value = formattedDateTime;
+               }
+
+// Call the function to generate date and time when the form is loaded
+window.onload = generateDateTime;
 
 // Update the user dashboard with activity summary data
 document.getElementById("total-posts").textContent = activitySummary.totalPosts;
