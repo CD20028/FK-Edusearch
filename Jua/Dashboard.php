@@ -6,7 +6,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
         body {
-            background-color: white;
+            background-color: #EFEDED;
             font-family: 'Inter', sans-serif;
         }
 
