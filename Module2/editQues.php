@@ -90,7 +90,7 @@
       echo "<td>" . $row["question"] . "</td>";
       echo "<td>" . $row["research"] . "</td>";
       echo "<td>" . $row["status"] . "</td>";
-      echo "<td><button class='btn btn-danger' onclick='deleteQuestion(" . $row["id_quest"] . ")'>Delete</button></td>";
+      echo "<td><button class='btn btn-danger' onclick='editQuestion(" . $row["id_quest"] . ")'>Edit</button></td>";
 
       echo "</tr>";
     }
@@ -145,7 +145,7 @@
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
                         ><span>Manage Question</span>
                       </a>
-                        <a href="ManageProfile.html" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="ManageProfile.php" class="list-group-item list-group-item-action py-2 ripple "
                           ><span>Manage Profile</span>
                         </a>
                       </div>
@@ -174,24 +174,13 @@
               <!-- Sidebar toggle responsive -->
 
       <!--Side navbar-->
-
+      
       <script>
-    function deleteQuestion(id_quest) {
-        var confirmDelete = confirm("Are you sure you want to delete this question?");
-        if (confirmDelete) {
-            // Send an AJAX request to delete the question from the database
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "delete_question.php", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // If the deletion was successful, remove the row from the table
-                    window.location.href = "ManageQuestion.php";
-                }
-            };
-            xhr.send("id_quest=" + id_quest);
-            
-
+    function editQuestion(id_quest) {
+        var confirmEdit = confirm("Are you sure you want to edit this question?");
+        if (confirmEdit) {
+      window.location.href = "widih.php";
+          
         }
     }
 </script>

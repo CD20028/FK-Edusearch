@@ -23,6 +23,21 @@ if (isset($_POST['id_quest'])) {
         echo "Error deleting question: " . $stmt->error;
     }
 
+// Prepare the update statement
+$stmt = $conn->prepare("UPDATE quesdb SET question = ? WHERE id_quest = ?");
+$stmt->bind_param("si", $updatedQuestion, $id);
+
+// Execute the update statement
+if ($stmt->execute()) {
+    // Update successful
+    echo "Question updated successfully";
+    
+} else {
+    // Update failed
+    echo "Error updating question: " . $stmt->error;
+}
+
+
     // Close the statement and database connection
     $stmt->close();
     $conn->close();

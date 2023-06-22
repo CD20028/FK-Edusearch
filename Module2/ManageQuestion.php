@@ -108,7 +108,7 @@
           
         <div class="float-buttons">
           <button id="createButton" class="float-button ">Create</button>
-          <button  class="float-button grey">Edit</button>
+          <button id="editButton" class="float-button grey">Edit</button>
           <button id="deleteButton" class="float-button red ">Delete</button>
         </div>
 
@@ -141,7 +141,7 @@
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
                         ><span>Manage Question</span>
                       </a>
-                        <a href="ManageProfile.html" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="ManageProfile.php" class="list-group-item list-group-item-action py-2 ripple "
                           ><span>Manage Profile</span>
                         </a>
                       </div>
@@ -165,6 +165,17 @@
 <script>
   // Get a reference to the "Create" button
   var createButton = document.getElementById("deleteButton");
+
+  // Add a click event listener to the button
+  createButton.addEventListener("click", function() {
+    // Redirect the user to the next page
+    window.location.href = "deleteQues.php";
+  });
+</script>
+
+<script>
+  // Get a reference to the "Create" button
+  var createButton = document.getElementById("editButton");
 
   // Add a click event listener to the button
   createButton.addEventListener("click", function() {
