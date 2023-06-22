@@ -7,7 +7,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
         body {
-            background-color: white;
+            background-color: #D6D1B3;
             font-family: 'Inter', sans-serif;
         }
 
@@ -181,6 +181,8 @@
     // Close the database connection
     $conn->close();
 ?>
+    <img src="Ump.png" alt="Logo" width="50" height="80">
+    <img src="fkLogo.png" alt="Logo" width="150" height="100">
 
 <ul class="navbar">
     <li><a href="MainPage.php">Home</a></li>

@@ -6,7 +6,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
         body {
-            background-color: #EFEDED;
+            background-color: #D6D1B3;
             font-family: 'Inter', sans-serif;
         }
 
@@ -179,7 +179,7 @@
 
 <ul class="navbar">
 
-    <li><a href="MainPage.php">Home</a></li>
+    <li><a href="Dashboard.php">Home</a></li>
     <li><a href="DataList.php">Data</a></li>
     <li><a href="Status.php">Status</a></li>
     <li><a href="User.php">User List</a></li>

@@ -5,7 +5,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
         body {
-            background-color: silver;
+            background-color: #D6D1B3;
             font-family: 'Inter', sans-serif;
         }
 
@@ -41,7 +41,7 @@
         }
 
         ul.navbar li a:hover {
-            background-color: #111;
+            background-color: #8dc0ad;
             color: white;
         }
 
@@ -100,15 +100,17 @@
 </head>
 <body>
 
+<img src="Ump.png" alt="Logo" width="50" height="80">
+    <img src="fkLogo.png" alt="Logo" width="150" height="100">
 
 
 <ul class="navbar">
-    <li><a href="MainPage.php">Home</a></li>
-    <li><a href="DataListPage.php">Data</a></li>
-    <li><a href="StatusListPage.php">Status</a></li>
-    <li><a href="UserListPage.php">User List</a></li>
+    <li><a href="Dashboard.php">Home</a></li>
+    <li><a href="DataList.php">Data</a></li>
+    <li><a href="Status.php">Status</a></li>
+    <li><a href="User.php">User List</a></li>
     <li><a href="ComplaintListPage.php">Complaint</a></li>
-    <li><a href="ReportPage.php">Report</a></li>
+    <li><a href="ReportMainPage.php">Report</a></li>
     <li class="navbar-right">
         <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" alt="Profile Picture" class="profile-pic">
         <img src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-notification-icon-png-image_1577363.jpg" alt="Notification Logo" class="notification-logo">

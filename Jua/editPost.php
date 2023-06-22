@@ -4,6 +4,67 @@
 <html>
 <head>
     <title>Edit Post</title>
+    <style>
+    
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        .form-group .success-message {
+            color: #8dc0ad;
+            margin-top: 5px;
+        }
+
+        .form-group .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #8dc0ad;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-group .submit-btn:hover {
+            background-color: #8dc0ad;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -41,15 +102,18 @@
     $conn->close();
     ?>
 
-    <h2>Edit Post</h2>
+    
+    <div class="container"><h2>Edit Post</h2>
     <form method="POST" action="update_post.php">
+    <div class="form-group">
         <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
         <label for="title">Title:</label>
         <input type="text" name="title" id="title" value="<?php echo $title; ?>" required><br>
-
+    </div>
+    <div class="form-group">
         <label for="description">Description:</label>
-        <textarea name="description" id="description" required><?php echo $description; ?></textarea><br>
-
+        <input type="text" name="description" id="description" value="<?php echo $description; ?>" required><br>
+    </div>
         <input type="submit" value="Update Post">
     </form>
 </body>
