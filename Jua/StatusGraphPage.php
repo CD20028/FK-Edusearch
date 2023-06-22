@@ -6,7 +6,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
         body {
-            background-color: #D6D1B3;
+            background-color: white;
             font-family: 'Inter', sans-serif;
         }
 
@@ -41,7 +41,7 @@
         }
 
         ul.navbar li a:hover {
-            background-color: #8dc0ad;
+            background-color: #111;
             color: white;
         }
 
@@ -144,41 +144,35 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Initialize variables for data retrieval
-    $interval = "daily"; // Default interval
-    $totalPosts = 0;
-    $totalComments = 0;
-    $totalLikes = 0;
-
-    if (isset($_GET['interval'])) {
-        $interval = $_GET['interval'];
-    }
-
-    $sql = "SELECT COUNT(*) AS total_posts FROM posts";
+    $sql = "SELECT COUNT(*) AS total_InInvestigation
+                FROM posts
+                WHERE statuss = 'InInvestigation'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    $totalPosts = $row['total_posts'];
+    $totalInvestigations = $row['total_InInvestigation'];
 
-    $sql = "SELECT COUNT(*) AS total_comments FROM comments";
+    $sql = "SELECT COUNT(*) AS total_OnHold
+                FROM posts
+                WHERE statuss = 'OnHold'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    $totalComments = $row['total_comments'];
+    $totalOnhold = $row['total_OnHold'];
 
-    $sql = "SELECT SUM(`like`) AS total_likes FROM posts";
+    $sql = "SELECT COUNT(*) AS total_Resolved
+                FROM posts
+                WHERE statuss = 'Resolved'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    $totalLikes = $row['total_likes'];
+    $totalResolved = $row['total_Resolved'];
 
     // Close the database connection
     $conn->close();
 ?>
 
-    <img src="Ump.png" alt="Logo" width="50" height="80">
-    <img src="fkLogo.png" alt="Logo" width="150" height="100">
-
+<img src="Ump.png" alt="Logo" width="50" height="80">
+<img src="fkLogo.png" alt="Logo" width="150" height="100">
 
 <ul class="navbar">
-
     <li><a href="Dashboard.php">Home</a></li>
     <li><a href="DataList.php">Data</a></li>
     <li><a href="Status.php">Status</a></li>
@@ -194,49 +188,37 @@
 <h1 class="header">Dashboards</h1>
 
 <div class="dropdown">
-    <button class="dropbtn">Pick Graph</button>
+    <button class="dropbtn">Choose Graph</button>
     <div class="dropdown-content">
-        <a href="ReportPage.php">Data List Graph</a>
+        <a href="ReportPage.php">Data Graph</a>
         <a href="StatusGraphPage.php">Status Graph</a>
         <a href="UserGraphPage.php">User Graph</a>
         <a href="ComplaintGraphPage.php">Complaint Graph</a>
     </div>
 </div>
 
-<div class="container">
-    <div class="btn-group">
-        <button onclick="changeInterval('daily')" <?php if ($interval == 'daily') echo 'class="active"'; ?>>Daily</button>
-        <button onclick="changeInterval('weekly')" <?php if ($interval == 'weekly') echo 'class="active"'; ?>>Weekly</button>
-        <button onclick="changeInterval('yearly')" <?php if ($interval == 'yearly') echo 'class="active"'; ?>>Yearly</button>
-    </div>
-
 <canvas id="myChart"></canvas>
 
 <script>
-
-function changeInterval(interval) {
-        // Redirect to the current page with the selected interval as a parameter
-        window.location.href = 'StatusGraphPage.php?interval=' + interval;
-    }
     var ctx = document.getElementById('myChart').getContext('2d');
 
     // Define the data
     var data = {
-        labels: ['Posts', 'Comments', 'Likes'],
+        labels: ['InInvestigation', 'OnHold', 'Resolved'],
         datasets: [{
             label: 'Total Count',
-            data: [<?php echo $totalPosts; ?>, <?php echo $totalComments; ?>, <?php echo $totalLikes; ?>],
+            data: [<?php echo $totalInvestigations; ?>, <?php echo $totalOnhold; ?>, <?php echo $totalResolved; ?>],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)', // Red
-                'rgba(255, 165, 0, 0.2)', // Orange
-                'rgba(128, 0, 128, 0.2)', // Purple
+                'rgba(54, 162, 235, 0.2)', // Blue
+                'rgba(75, 192, 192, 0.2)', // Green
             ],
             borderColor: [
-                'rgba(255, 99, 132,1)', // Red
-                'rgba(255, 165, 0, 1)', // Orange
-                'rgba(128, 0, 128, 1)', // Purple
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(75, 192, 192, 1)',
             ],
-            borderWidth: 0.5
+            borderWidth: 1
         }]
     };
 
