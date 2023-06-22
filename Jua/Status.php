@@ -139,8 +139,8 @@
 
                 // Prepare and execute the SQL query
                 $sql = "SELECT COUNT(*) AS total_InInvestigation
-                FROM complaints
-                WHERE status = 'investigation'";
+                FROM posts
+                WHERE statuss = 'investigation'";
                 $result = $conn->query($sql);
 
                 // Check if there is a row returned
@@ -180,8 +180,8 @@
 
                 // Prepare and execute the SQL query
                 $sql = "SELECT COUNT(*) AS total_OnHold
-                FROM complaints
-                WHERE status = 'onhold'";
+                FROM posts
+                WHERE statuss = 'onhold'";
                 $result = $conn->query($sql);
 
                 // Check if there is a row returned
@@ -221,8 +221,8 @@
 
                 // Prepare and execute the SQL query
                 $sql = "SELECT COUNT(*) AS total_Resolved
-                FROM complaints
-                WHERE status = 'resolved'";
+                FROM posts
+                WHERE statuss = 'resolved'";
                 $result = $conn->query($sql);
 
                 // Check if there is a row returned

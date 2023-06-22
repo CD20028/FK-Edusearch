@@ -169,12 +169,15 @@
     $row = $result->fetch_assoc();
     $totalLikes = $row['total_likes'];
 
+    
+
 
     // Retrieve posts and comments from the database
-    $sql = "SELECT posts.post_id AS post_id, posts.title AS post_title, posts.post_description AS post_description, COUNT(comments.comment_id) AS comment_count 
+    $sql = "SELECT posts.post_id AS post_id, posts.title AS post_title, posts.post_description AS post_description, COUNT(comments.comment_id) AS comment_count, posts.statuss AS statuss
         FROM posts 
         LEFT JOIN comments ON posts.post_id = comments.post_id 
-        GROUP BY posts.post_id, posts.title, posts.post_description";
+        GROUP BY posts.post_id, posts.title, posts.post_description, posts.statuss";
+
     $result = $conn->query($sql);
 
 
@@ -185,12 +188,12 @@
     <img src="fkLogo.png" alt="Logo" width="150" height="100">
 
 <ul class="navbar">
-    <li><a href="MainPage.php">Home</a></li>
-    <li><a href="DataListPage.php">Data</a></li>
-    <li><a href="StatusListPage.php">Status</a></li>
-    <li><a href="UserListPage.php">User List</a></li>
+    <li><a href="Dashboard.php">Home</a></li>
+    <li><a href="DataList.php">Data</a></li>
+    <li><a href="Status.php">Status</a></li>
+    <li><a href="User.php">User List</a></li>
     <li><a href="ComplaintListPage.php">Complaint</a></li>
-    <li><a href="ReportPage.php">Report</a></li>
+    <li><a href="ReportMainPage.php">Report</a></li>
     <li class="navbar-right">
         <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" alt="Profile Picture" class="profile-pic">
         <img src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-notification-icon-png-image_1577363.jpg" alt="Notification Logo" class="notification-logo">
@@ -204,6 +207,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Comment Count</th>
+        <th>Status </th>
         <th>Actions</th>
     </tr>
     <?php
@@ -213,13 +217,15 @@
                 $postTitle = $row['post_title'];
                 $postDescription = $row['post_description'];
                 $commentCount = $row['comment_count'];
+                $statuss = $row['statuss'];
                 ?>
                 <tr>
                     <td><?php echo $postTitle; ?></td>
                     <td><?php echo $postDescription; ?></td>
                     <td><?php echo $commentCount; ?></td>
+                    <td><?php echo $statuss; ?></td>
                     <td>
-                        <a href="editPost.php?post_id=<?php echo $postID; ?>">Edit</a>
+                        <a href="AdminEditPosts.php?post_id=<?php echo $postID; ?>">Edit</a>
                         <a href="deletePost.php?post_id=<?php echo $postID; ?>">Delete</a>
                     </td>
                 </tr>
