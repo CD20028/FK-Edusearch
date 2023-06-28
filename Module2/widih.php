@@ -1,46 +1,24 @@
 <?php
+session_start();
 require 'connection.php';
 
-$conn = mysqli_connect("localhost", "root", "", "fk_edusearch");
-if ($conn->connect_error) {
-  die("Connection failed:" . $conn->connect_error);
-}
-
-$id_quest = isset($_GET["id_quest"]) ? $_GET["id_quest"] : null; // Assuming the id_quest is passed via GET parameter
-
-if ($id_quest === null) {
-  echo "Question ID not specified.";
-  exit; // or handle the error as per your requirement
-}
-
-$query = "SELECT question, research, status FROM quesdb WHERE id_quest='$id_quest'";
-$result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
-
-if (!$row) {
-  echo "Question not found.";
-  exit; // or handle the error as per your requirement
-}
-
-$question = $row['question'];
-$research = $row['research'];
-$status = $row['status'];
-
 if (isset($_POST["submit"])) {
-  $question = $_POST["question"];
+  $question= $_POST["question"];
   $research = $_POST["research"];
   $status = $_POST["status"];
+  
 
-  $query = "UPDATE quesdb SET question='$question', research='$research', status='$status' WHERE id_quest='$id_quest'";
+  $query = "UPDATE quesdb SET question='$question', research='$research', status='$status' WHERE userID = '" . $_SESSION['userID'] . "'";
   mysqli_query($conn, $query);
 
   if (mysqli_affected_rows($conn) > 0) {
-    echo "<script>alert('Question has been updated!'); window.location.href = 'ManageQuestion.php';</script>";
+    echo "<script>alert('Profile has been updated!'); window.location.href = 'ManageQuestion.php';</script>";
   } else {
-    echo "<script>alert('Failed to update question.'); window.location.href = 'ManageQuestion.php';</script>";
+    echo "<script>alert('Failed to update profile.'); window.location.href = 'ManageQuestion.php';</script>";
   }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,45 +86,61 @@ if (isset($_POST["submit"])) {
       <!-- Table -->
       <div class="table-and-buttons">
         <table class="table table-sm">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Question</th>
-              <th>Research Area</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <?php
-          echo "<form class='' action='" . $_SERVER['PHP_SELF'] . "' method='post' autocomplete='off'>";
-          echo "<input type='hidden' name='id_quest' value='" . $id_quest . "'>";
-          echo "<tr>";
-          echo "<td>" . $id_quest . "</td>";
+       
 
-          echo "<td>";
-          echo "<input type='text' style='width: 350px;' name='question' value='" . $question . "' id='questionInput'>";
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Research Area</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+           <?php
+  $conn = mysqli_connect("localhost","root","","edusearch");
+  if ($conn-> connect_error){
+    die("Connection failed:".$conn-> connect_error);
+  } 
+  $sql = "SELECT question,research, status from quesdb WHERE userID = '" . $_SESSION['userID'] . "'";
+  $result =$conn-> query($sql);
 
-          echo "<td>";
-          echo "<input type='text' style='width: 350px;' name='research' value='" . $research . "' id='researchInput'>";
+  if ($result-> num_rows >0){
+    while ($row = $result-> fetch_assoc()){
+    echo "<form class='' action='".$_SERVER['PHP_SELF']."' method='post' autocomplete='off'>";
 
-          echo "<td>";
-          echo "<input type='text' style='width: 350px;' name='status' value='" . $status . "' id='statusInput'>";
+      echo "<tr>";
+      echo "<td >";
+     echo "<input type='text' style='width: 350px;' name='question' value='" . $row['question'] . "' id='questionInput'>";
+     
+     echo "<td>";
+     echo "<input type='text' style='width: 150px;' name='research' value='" . $row['research'] . "' id='researchInput'>";
+     
+     echo "<td>";
+     echo "<input type='text' style='width: 150px;' name='status' value='" . $row['status'] . "' id='statusInput'>";
+     
+      echo "</tr>";
+      echo "</table>";
+    echo "<button type='submit' style='width : 100px' name='submit' class='float-button'>Save</button>";
+    echo "</form>";
+   echo" <button id='cancelButton' style='width : 100px' class='float-button red'>Cancel</button>";
+    
+   }
+    
+  }
 
-          echo "</table>";
+  else {
+   echo "0 result";
 
-          echo "<button type='submit' style='width : 100px' name='submit' class='float-button'>Save</button>";
-          echo "</form>";
-          echo " <button id='cancelButton' style='width : 100px' class='float-button red'>Cancel</button>";
-          echo "</tr>";
-          ?>
-        </table>
+  }
+  $conn-> close();
+  ?>
+
+
+   </table>
       </div>
 
-      <div class="float-buttons">
-        <button id="cancelButton" class="float-button red">Cancel</button>
-      </div>
 
-    </div>
-  </div>
+      
 
 
 
@@ -167,7 +161,7 @@ if (isset($_POST["submit"])) {
     <div class="" id="logoump"><img src="logoFK.png" alt="Logo UMP" srcset="" style="margin-top: -20px;"></div>
     <div class="position-sticky">
       <div class="list-group list-group-flush mx-3 mt-4">
-        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
           <span>Dashboard</span>
         </a>
         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple ">

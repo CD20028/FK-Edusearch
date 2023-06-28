@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <?php
-   include("database.php");
-   session_start();
+session_start();
+include('database.php');
 ?>
+
 <html>
-<title>FKeduTech.com</title>
+<title>FKeduSearch.com</title>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,8 +101,7 @@
         letter-spacing: 0.5px;
         box-shadow: 0 12px 20px 0 rgba(0,0,0,0.6),0 17px 50px 0 rgba(0,0,0,0.6);
     }
-
-</style>
+    </style>
 
 <?php
 $query = "SELECT * FROM user WHERE userID = '" . $_SESSION['userID'] . "'";
@@ -108,90 +109,99 @@ $result=mysqli_query($conn, $query);
 while($row = mysqli_fetch_array($result)){
 ?>
 
-
 <body>
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card" id="myNavbar">
-    <a href="index.php" class="w3-button w3-wide w3-hover-grey text-decoration: none;"><img src="Assets/Pictures/logoFK.png" alt="logo" id="logo"></a>
+    <a href="mainPageLogin.php" class="w3-button w3-wide w3-hover-grey text-decoration: none;"><img src="Assets/Pictures/logoFK.png" alt="logo" id="logo"></a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
         <a href="../Admin/login.php" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav" onclick="logOutVal()">LOG OUT</a>
-        <a href="adminProfile.php?userID=<?php echo $_SESSION['userID']; ?>" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav"><i class="fa fa-user-circle-o" style="font-size:23px"></i>ADMIN, <?php echo $row['userName']; ?></a>
-    </div>
+        <a href="" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav"><i class="fa fa-user-circle-o" style="font-size:23px"></i>STAFF, <?php echo $row['userName']; ?></a>
+      </div>
   </div>
 </div>
 <?php } ?>
+
+<script>
+function logOutVal() {
+  var ask = window.confirm("Are you sure you want to log out?");
+  if (ask == true) {
+    window.location="logout.php";
+  } else {
+    return false;
+  }
+}
+</script> 
+
 <!-- Navbar (left side) -->
 <div class="sidebar">
   <a href="index.php"><i class="fa fa-home"></i> Home</a>
-  <a href= "viewUser.php"><i class="fa fa-users"></i> User</a>
-  <a href="manageUser.php"><i class="fa fa-cogs"></i> Manage User</a>
-</div>
+  <a href="staffProfile.php?userID=<?php echo $_SESSION['userID']; ?>"><i class="fa fa-user"></i> Profile</a>
+</div>  
 
 <!-- main -->
 <div class="main">
-    <h1 id="locationT">CREATE NEW USER</h1>
-    <hr>
-    
+    <h1 id="locationT">EDIT MY PROFILE</h1>
+<hr>
+
+<?php
+$userID = $_GET['userID'];
+
+$query = "SELECT * FROM user WHERE userID = '$userID'";
+
+$result = mysqli_query($conn,$query) or die ("Could not execute query in adminProfile.php");
+$row = mysqli_fetch_assoc($result);
+$userID = $row["userID"];
+$fullName = $row["fullName"]; 
+$userName = $row["userName"];
+$phoneNumber = $row["phoneNumber"]; 
+$address = $row["address"];
+$email = $row["email"]; 
+$userType = $row["userType"]; 
+?>
+
 <table style="background-color: #007973; letter-spacing: 0.5px;">
-<form method="post" action="insertUser.php">
+<form method="post" action="updateProfile.php">
 <tr>
     <th>
-    <h1 style="text-align: center; font-family:Courier New;"><b>NEW USER</b></h1><br>
+    <h1 style="text-align: center; font-family:Courier New;"><b>PROFILE</b></h1>
     </th>
 </tr>
 <tr>
     <td><b style="padding-left:10px">FULLNAME</b>
-    <center><input type="text" name="fullName" required></center>
+    <center><input type="text" name="fullName" value="<?php echo $row['fullName']; ?>" required></center>
     </td>
 </tr>
 <tr>
     <td><b style="padding-left:10px">USERNAME</b>
-    <center><input type="text" name="userName" required></center>
+    <center><input type="text" name="userName" value="<?php echo $row['userName']; ?>" required></center>
     </td>
 </tr>
 <tr>
     <td><b style="padding-left:10px">PHONE NUMBER</b>
-    <center><input type="text" name="phoneNumber" pattern=".{10,11}" title="number phone should be 10 digits!." required></center>
+    <center><input type="text" name="phoneNumber" pattern=".{10}" title="number phone should be 10 digits!." value="<?php echo $row['phoneNumber'] ?>" required></center>
     </td>
 </tr>
 <tr>
     <td><b style="padding-left:10px">ADDRESS</b>
-    <center><input type="text" name="address" required></center>
+    <center><input type="text" name="address" value="<?php echo $row['address']; ?>" required></center>
     </td>
 </tr>
 <tr>
     <td><b style="padding-left:10px">EMAIL</b>
-    <center><input type="email" name="email" required></center>
+    <center><input type="email" name="email" id="email" value="<?php echo $row['email']; ?>" required></center>
     </td>
 </tr>
-<tr>
-    <td><b style="padding-left:10px">PASSWORD</b><h4 style="padding-left:30px; font-size:11px; color:#990000;"></h4>
-    <center><input type="password" name="password" id="psw" required></center>
-    </td>
-</tr>
-<tr>
-    <td style="padding-left: 30px;"><b>USER TYPE</b><br>
-    <select id="userType" name="userType" class="" required>
-		<option value="" disabled>Choose User Type</option>
-		<option value="ADMIN">ADMIN</option>
-		<option value="STAFF">STAFF</option>
-        <option value="STUDENT">STUDENT</option>
-        <option value="EXPERT">EXPERT</option>
-	</select>
-    </td>
-</tr>
-<tr>
+    <tr>
     <td>
-    <button type="submit" class="signupbtn"><b>ADD USER</b></button>
+    <input type ="hidden" name="userID" value="<?php echo $userID; ?>">
+    <button type="submit" class="signupbtn" ><b>UPDATE</b></button><br>
     </td>
 </tr>
 
 </form>
 </table>
-
 </div>
-							
 </body>
 </html>

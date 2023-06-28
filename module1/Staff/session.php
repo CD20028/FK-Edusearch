@@ -21,8 +21,8 @@ if($rows_fetched==0){
 	?>
 	<script>
 	window.alert("Wrong username and password!.");
-	</script>tp-equiv="refresh" 
-	<meta htcontent="1;url=login.php" />
+	</script>
+	<meta http-equiv="refresh" content="1;url=login.php" />
 	<?php
 } else {
 	$row=mysqli_fetch_array($result);
@@ -31,25 +31,21 @@ if($rows_fetched==0){
 	
 	if($row["userType"] == "ADMIN")
 				{	
-					header('Location: ../Admin/index.php');
+					header('Location: Admin/indexA.php');
 				}
 
 				else if($row["userType"] == "STAFF")
 				{
-					header('Location: ../Staff/index.php');
+					header('Location: indexB.php');
 				}
                 else if($row["userType"] == "STUDENT")
 				{
-					header('Location: http://localhost/FK-Edusearch/Module2/dashboard.php');
+					header('Location: indexB.php');
 				}
 
-				else if($row["userType"] == "EXPERT")
-				{
-					header('Location: ../Expert/index.php');
 				}
 	//header("location: indexA.php");
 	exit();
 }
-
 
 ?>

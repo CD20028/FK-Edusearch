@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('database.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,22 +80,25 @@
                 <th>Matric ID</th>
                 <th>Phone Number</th>
                 <th>Address</th>
+                
               </tr>
             </thead>
+
            <?php
-  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  $query = "SELECT * FROM user WHERE userID = '" . $_SESSION['userID'] . "'";         
+  $conn = mysqli_connect("localhost","root","","edusearch");
   if ($conn-> connect_error){
     die("Connection failed:".$conn-> connect_error);
   } 
-  $sql = "SELECT name,matricID, phoneNum, address from profile ";
+  $sql = "SELECT fullName,matricID, phoneNumber, address from user WHERE userID = '" . $_SESSION['userID'] . "'";
   $result =$conn-> query($sql);
 
   if ($result-> num_rows >0){
     while ($row = $result-> fetch_assoc()){
       echo "<tr>";
-      echo "<td>" . $row["name"] . "</td>";
+      echo "<td>" . $row["fullName"] . "</td>";
       echo "<td>" . $row["matricID"] . "</td>";
-      echo "<td>" . $row["phoneNum"] . "</td>";
+      echo "<td>" . $row["phoneNumber"] . "</td>";
       echo "<td>" . $row["address"] . "</td>";
       echo "</tr>";
     }
@@ -134,7 +141,7 @@
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "

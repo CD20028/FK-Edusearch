@@ -40,12 +40,50 @@
     transition: ease-in-out;
     transition-delay: 80ms;
   }
+
+  .table-section {
+    flex: 1;
+  }
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .comment-section {
+    flex: 1;
+  }
+
+  .float-button {
+    margin-top: 50px;
+    margin-left: 50px;
+    background-color: rgb(1, 179, 87);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+
+  }
   /* top banner/navbar css*/
   
 
   /* Laptop Responsive CSS*/
   @media (min-width: 991.98px) {
       
+
+    .table-section {
+      flex: 1;
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .comment-section {
+      flex: 1;
+    }
+
     }
       /* Sidebar */
       #logoump img{
@@ -97,7 +135,17 @@
             background-color: #000;
             margin: 20px 0;
           }
-
+          
+          .float-button {
+            margin-top: 50px;
+            margin-left: 50px;
+            background-color: rgb(1, 179, 87);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        
+          }
        
         /* Phone Responsive*/
       @media screen and (max-width: 768px) {

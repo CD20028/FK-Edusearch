@@ -1,11 +1,13 @@
 <?php
+session_start();
 require 'connection.php';
 if(isset($_POST["submit"])){
   $question =$_POST["question"];
   $research =$_POST["researchArea"];
   $status =$_POST["status"];
+  $userID= $_SESSION['userID'] ;
 
-  $query = "INSERT INTO quesdb VALUES('$question','$research','$status','$id_quest') ";
+  $query = "INSERT INTO quesdb VALUES('$question','$research','$status','$id_quest','$userID','$likes') ";
   mysqli_query($conn,$query);
   echo
   "
@@ -149,7 +151,7 @@ if(isset($_POST["cancel"])){
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "

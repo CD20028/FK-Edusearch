@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('database.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +30,12 @@
             </span>
           </form>
 
+
+          <form class="d-flex input-group w-auto" method="GET" action="">
+    <input class="form-control me-2" type="search" name="search" placeholder="Search question..." aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+</form>
+
             <!-- Profile dropdown-->
             <div class="col-md-1" id="profiledropdown">
               <div class="btn-group" style="margin-left: 50px;">
@@ -46,6 +56,7 @@
               </div>
             </div>
             <!-- Profile dropdown-->
+
      
     </div>
         </div>
@@ -77,11 +88,21 @@
     </tr>
   </thead>
   <?php
-  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  $conn = mysqli_connect("localhost","root","","edusearch");
   if ($conn-> connect_error){
     die("Connection failed:".$conn-> connect_error);
   } 
-  $sql = "SELECT question, research, status,id_quest from quesdb ";
+
+  $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+
+  $sql = "SELECT question, research, status,id_quest,likes from quesdb WHERE userID = '" . $_SESSION['userID'] . "'";
+  
+  if (!empty($search)) {
+    $sql .= " WHERE question LIKE '%$search%'";
+}
+  
+  
   $result =$conn-> query($sql);
 
   if ($result-> num_rows >0){
@@ -135,7 +156,7 @@
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "

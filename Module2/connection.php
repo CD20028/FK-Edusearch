@@ -1,3 +1,3 @@
 <?php
-$conn = mysqli_connect("localhost","root","","fk_edusearch");
+$conn = mysqli_connect("localhost","root","","edusearch");
 ?>

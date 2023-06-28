@@ -25,6 +25,11 @@ include('database.php');
 </head>
 
 <style>
+    body {
+        background-color: #00ada5;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 .circle-tile {
     margin-bottom: 15px;
     text-align: center;
@@ -88,7 +93,23 @@ include('database.php');
 .text-faded {
     color: rgba(255, 255, 255, 0.7);
 }
-
+  .main {
+    margin-left: 260px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+    padding-top: 66px;
+    background-color: #00ada5;
+  }
+  .sidebar {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 66px;
+    left: 0;
+    background-color: #007973;
+    overflow-x: hidden;
+    padding-top: 16px;
+  }
   </style>
 
 <?php
@@ -104,7 +125,7 @@ while($row = mysqli_fetch_array($result)){
     <a href="index.php" class="w3-button w3-wide w3-hover-grey text-decoration: none;"><img src="Assets/Pictures/logoFK.png" alt="logo" id="logo"></a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
-        <a href="../../logout.php" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav" onclick="logOutVal()">LOG OUT</a>
+        <a href="../Admin/login.php" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav" onclick="logOutVal()">LOG OUT</a>
         <a href="adminProfile.php?userID=<?php echo $_SESSION['userID']; ?>" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav"><i class="fa fa-user-circle-o" style="font-size:23px"></i>ADMIN, <?php echo $row['userName']; ?></a>
       </div>
   </div>
@@ -176,7 +197,7 @@ function logOutVal() {
         <div class="circle-tile-content dark-brown">
           <div class="circle-tile-description text-faded "> STAFF</div>
           <div class="circle-tile-number text-faded "><?php
-              $sql= $conn->query("SELECT COUNT(*) as totalStaff FROM user WHERE userType ='EXPERT'")
+              $sql= $conn->query("SELECT COUNT(*) as totalStaff FROM user WHERE userType ='STAFF'")
               or die(mysqli_error());
               $result = $sql->fetch_array();
               ?>
