@@ -76,8 +76,8 @@ if (isset($_POST["like"])) {
     <button class="btn btn-outline-primary" type="submit">Search</button>
 </form>
 
-            <!-- Profile dropdown-->
-            <div class="w3-right w3-hide-small">
+          <!-- Profile dropdown-->
+          <div class="w3-right w3-hide-small">
             <button class="btn btn-danger" onclick="logOutVal()">LOG OUT</button>
             <!-- Profile dropdown-->
      
@@ -126,12 +126,12 @@ if (isset($_POST["like"])) {
       echo "      Research Area :";
 
       echo "<td>" . $row["research"] . "</td>";
-     echo "<br>" ;
-
-     echo "      Status :";
+      echo "<br>" ;
+      
+      echo "      Status :";
       echo "<td>" . $row["status"] . "</td>";
-  echo "<br>" ;
 
+     echo "<br>" ;
       echo "  <td>    Total likes for this post :</td>";
       echo "<td>" . $row["likes"] . "</td>";
 
@@ -204,7 +204,6 @@ if (isset($_POST["like"])) {
   
       
       
-     
 
     
  
@@ -229,13 +228,13 @@ if (isset($_POST["like"])) {
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="EXdashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
-                        <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="EXmanagequestion.php" class="list-group-item list-group-item-action py-2 ripple "
                         ><span>Manage Question</span>
                       </a>
-                        <a href="ManageProfile.php" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="EXprofile.php" class="list-group-item list-group-item-action py-2 ripple "
                           ><span>Manage Profile</span>
                         </a>
                       </div>
@@ -260,6 +259,17 @@ if (isset($_POST["like"])) {
    
 
       <script>
+function logOutVal() {
+  var ask = window.confirm("Are you sure you want to log out?");
+  if (ask == true) {
+    window.location="logout.php";
+  } else {
+    return false;
+  }
+}
+</script> 
+
+<script>
 function logOutVal() {
   var ask = window.confirm("Are you sure you want to log out?");
   if (ask == true) {

@@ -1,36 +1,7 @@
 <?php
 session_start();
-require 'connection.php';
-if(isset($_POST["submit"])){
-  $question =$_POST["question"];
-  $research =$_POST["researchArea"];
-  $status ="NEW";
-  $userID= $_SESSION['userID'] ;
-
-  $id_quest = uniqid();
-
-  $query = "INSERT INTO quesdb VALUES('$question','$research','$status','$id_quest','$userID','$likes') ";
-  mysqli_query($conn,$query);
-  echo
-  "
-  <script>  alert('Question have been created !'); 
-  window.location.href = 'ManageQuestion.php';
-  </script>
-  ";
-
-
-}
-
-if(isset($_POST["cancel"])){
-  echo "<script>
-          window.location.href = 'ManageQuestion.php';
-        </script>";
-}
-
+include('database.php');
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,26 +30,17 @@ if(isset($_POST["cancel"])){
             </span>
           </form>
 
+
+          <form class="d-flex input-group w-auto" method="GET" action="">
+    <input class="form-control me-2" type="search" name="search" placeholder="Search question..." aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+</form>
+
+           <!-- Profile dropdown-->
+           <div class="w3-right w3-hide-small">
+            <button class="btn btn-danger" onclick="logOutVal()">LOG OUT</button>
             <!-- Profile dropdown-->
-            <div class="col-md-1" id="profiledropdown">
-              <div class="btn-group" style="margin-left: 50px;">
-                <button type="button" class="btn btn-light"> <span><i class="fas fa-user"></i></span></button>
-                <button
-                  type="button"
-                  class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#">Log Out</a></li>
-                </ul>
-              </div>
-            </div>
-            <!-- Profile dropdown-->
+
      
     </div>
         </div>
@@ -100,36 +62,61 @@ if(isset($_POST["cancel"])){
           <!-- Table -->
    <div class="table-and-buttons">         
 <table class="table table-sm">
+
   <thead>
     <tr>
+      <th>ID</th>
       <th>Question</th>
       <th>Research Area</th>
-     
+      <th>Status</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-        <form class="" action="" method="post" autocomplete="off">
-      <td><input type="text" name="question" placeholder="Enter question" > </td>
-      <td> <input type="text" name="researchArea" placeholder="Enter research area" ></td>
-      
-      </tr>
-      </tbody>
-      </table>
-  </div>
+  <?php
+  $conn = mysqli_connect("localhost","root","","edusearch");
+  if ($conn-> connect_error){
+    die("Connection failed:".$conn-> connect_error);
+  } 
 
-      <div class="float-buttons text-center">
-        <button type="cancel" class="float-button red " name="cancel">Cancel</button>
-          <button type="submit" class="float-button " name="submit">Save</button>
-          
-        </div> 
+  $search = isset($_GET['search']) ? $_GET['search'] : '';
 
 
-   </form>
-
+  $sql = "SELECT question, research, status,id_quest,likes from quesdb ";
   
+  if (!empty($search)) {
+    $sql .= " WHERE question LIKE '%$search%'";
+}
+  
+  
+  $result =$conn-> query($sql);
 
-      
+  if ($result-> num_rows >0){
+    while ($row = $result-> fetch_assoc()){
+      echo "<tr>";
+      echo "<td>" . $row["id_quest"] . "</td>";
+      echo "<td>" . $row["question"] . "</td>";
+      echo "<td>" . $row["research"] . "</td>";
+      echo "<td>" . $row["status"] . "</td>";
+      echo "</tr>";
+    }
+    echo "</table>";
+  }
+  else {
+   echo "0 result";
+
+  }
+  $conn-> close();
+  ?>
+
+
+</table>
+</div>
+          
+        <div class="float-buttons">
+          <button id="createButton" class="float-button green ">Accept</button>
+          <button id="editButton" class="float-button green">Revised</button>
+         
+        </div>
+
     
  
 
@@ -153,22 +140,55 @@ if(isset($_POST["cancel"])){
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="EXdashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
-                        <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="EXmanagequestion.php" class="list-group-item list-group-item-action py-2 ripple "
                         ><span>Manage Question</span>
                       </a>
-                        <a href="ManageProfile.php" class="list-group-item list-group-item-action py-2 ripple "
+                        <a href="EXprofile.php" class="list-group-item list-group-item-action py-2 ripple "
                           ><span>Manage Profile</span>
                         </a>
                       </div>
                     </div>
                   </nav>
-         
+               
+
+      <!--Side navbar-->
+
+      <script>
+        // Get a reference to the "Create" button
+        var createButton = document.getElementById("createButton");
+      
+        // Add a click event listener to the button
+        createButton.addEventListener("click", function() {
+          // Redirect the user to the next page
+          window.location.href = "EXaccepted.php";
+        });
+      </script>
 
 
-     
+<script>
+  // Get a reference to the "Create" button
+  var createButton = document.getElementById("editButton");
+
+  // Add a click event listener to the button
+  createButton.addEventListener("click", function() {
+    // Redirect the user to the next page
+    window.location.href = "EXeditQues.php";
+  });
+</script>
+
+<script>
+function logOutVal() {
+  var ask = window.confirm("Are you sure you want to log out?");
+  if (ask == true) {
+    window.location="http://localhost/FK-Edusearch/module1/Admin/login.php";
+  } else {
+    return false;
+  }
+}
+</script> 
 
       <!--Scripting link for bootstrap and mdb-->
    
@@ -177,5 +197,8 @@ if(isset($_POST["cancel"])){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="/bootstrap/js/mdb.min.js"></script>
     
+
+
+
 </body>
 </html>

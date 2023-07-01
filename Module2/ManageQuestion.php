@@ -36,25 +36,9 @@ include('database.php');
     <button class="btn btn-outline-primary" type="submit">Search</button>
 </form>
 
-            <!-- Profile dropdown-->
-            <div class="col-md-1" id="profiledropdown">
-              <div class="btn-group" style="margin-left: 50px;">
-                <button type="button" class="btn btn-light"> <span><i class="fas fa-user"></i></span></button>
-                <button
-                  type="button"
-                  class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#">Log Out</a></li>
-                </ul>
-              </div>
-            </div>
+              <!-- Profile dropdown-->
+            <div class="w3-right w3-hide-small">
+            <button class="btn btn-danger" onclick="logOutVal()">LOG OUT</button>
             <!-- Profile dropdown-->
 
      
@@ -204,6 +188,19 @@ include('database.php');
     window.location.href = "editQues.php";
   });
 </script>
+
+
+
+      <script>
+function logOutVal() {
+  var ask = window.confirm("Are you sure you want to log out?");
+  if (ask == true) {
+    window.location="http://localhost/FK-Edusearch/module1/Admin/login.php";
+  } else {
+    return false;
+  }
+}
+</script> 
 
 
       <!--Scripting link for bootstrap and mdb-->

@@ -45,7 +45,7 @@ if($rows_fetched==0){
 
 				else if($row["userType"] == "EXPERT")
 				{
-					header('Location: ../Expert/index.php');
+					header('Location: http://localhost/FK-Edusearch/Module2/EXdashboard.php');
 				}
 	//header("location: indexA.php");
 	exit();

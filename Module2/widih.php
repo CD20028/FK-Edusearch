@@ -5,7 +5,7 @@ require 'connection.php';
 if (isset($_POST["submit"])) {
   $question= $_POST["question"];
   $research = $_POST["research"];
-  $status = $_POST["status"];
+  $status = "NEW";
   
 
   $query = "UPDATE quesdb SET question='$question', research='$research', status='$status' WHERE userID = '" . $_SESSION['userID'] . "'";
@@ -116,7 +116,7 @@ if (isset($_POST["submit"])) {
      echo "<input type='text' style='width: 150px;' name='research' value='" . $row['research'] . "' id='researchInput'>";
      
      echo "<td>";
-     echo "<input type='text' style='width: 150px;' name='status' value='" . $row['status'] . "' id='statusInput'>";
+     echo   $row["status"]  ;
      
       echo "</tr>";
       echo "</table>";
