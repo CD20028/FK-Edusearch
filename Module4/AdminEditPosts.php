@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html>
+<title>FKeduSearch.com</title>
 <head>
     <title>Edit Status</title>
     <style>

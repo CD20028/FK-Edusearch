@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<title>FKeduSearch.com</title>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>

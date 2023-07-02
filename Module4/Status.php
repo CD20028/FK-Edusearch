@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<title>FKeduSearch.com</title>
 <head>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');

@@ -80,7 +80,7 @@ function logOutVal() {
   <a href="index.php"><i class="fa fa-home"></i> Home</a>
   <a href= "viewUser.php"><i class="fa fa-users"></i> User</a>
   <a href="manageUser.php"><i class="fa fa-cogs"></i> Manage User</a>
-  <a href="Dashboard.php"><i class="fa fa-cogs"></i> Manage Report</a>
+  <a href="http://localhost/FK-Edusearch/Module4/dashboard.php"><i class="fa fa-cogs"></i> Manage Report</a>
 </div>
 
 <!-- main -->
