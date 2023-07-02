@@ -129,6 +129,8 @@
 </head>
 <body>
 <?php
+session_start();
+require 'connection.php';
   
 // Database connection details
 $servername = "localhost";
