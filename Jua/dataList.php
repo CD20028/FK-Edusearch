@@ -4,58 +4,57 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-        body {
-            background-color: #D6D1B3;
-            font-family: 'Inter', sans-serif;
+        .content {
+            margin-bottom: 30px;
         }
 
-        h1.header {
-            text-align: Center;
-    
+        .margin {
+            margin-left: 250px;
         }
 
-        ul.navbar {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+        .heading {
             background-color: white;
-        }
-
-        ul.navbar::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        ul.navbar li {
-            float: left;
-        }
-
-        ul.navbar li a {
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        ul.navbar li a:hover {
-            background-color: #8dc0ad;
-            color: white;
-        }
-
-        .navbar-right {
-            float: right;
-        }
-
-        .profile-pic {
-            display: inline-block;
-            vertical-align: middle;
-            width: 30px;
             height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
+            margin-left: 200px;
+        }
+
+        #logoump img {
+            margin-top: 100px;
+            width: 200px;
+            margin-left: -10px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 150px;
+            background-color: rgb(84, 255, 175);
+            padding: 20px;
+        }
+
+        .sidebar .list-group a {
+            display: block;
+            padding: 10px;
+            background-color: rgb(84, 255, 175);
+            margin-bottom: 10px;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .sidebar .list-group a:hover {
+            background-color: rgb(131, 136, 133);
+        }
+
+        .main-content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            margin-top: 0;
         }
 
         .notification-logo {
@@ -96,281 +95,317 @@
             text-align: left;
             font-size: 25px;
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
 
-<img src="Ump.png" alt="Logo" width="50" height="80">
-    <img src="fkLogo.png" alt="Logo" width="150" height="100">
+<div class="sidebar collapse d-lg-block sidebar collapse">
+        <div id="logoump">
+            <img src="logoFK.png" alt="Logo UMP" style="margin-top: -20px;">
+        </div>
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <a href="Dashboard.php">Home</a>
+                <a href="DataList.php">Total of Data</a>
+                <a href="Status.php">Total of Status</a>
+                <a href="ReportMainPage.php">Report</a>
+                <a href="#" oncick="logOutVal()">LOG OUT</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+            <h1 class="header 1">Data List:</h>
 
+            <table>
+                <tr>
+                    <th>Total Post:</th>
+                    <td>
+                    <?php
+                        // Database connection details
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "edusearch";
 
-<ul class="navbar">
-    <li><a href="Dashboard.php">Home</a></li>
-    <li><a href="DataList.php">Data</a></li>
-    <li><a href="Status.php">Status</a></li>
-    <li><a href="User.php">User List</a></li>
-    <li><a href="ComplaintListPage.php">Complaint</a></li>
-    <li><a href="ReportMainPage.php">Report</a></li>
-    <li class="navbar-right">
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" alt="Profile Picture" class="profile-pic">
-        <img src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-notification-icon-png-image_1577363.jpg" alt="Notification Logo" class="notification-logo">
-    </li>
-</ul>
+                        // Create a connection to the database
+                        $conn = new mysqli($servername, $username, $password, $dbname);
 
-    <h1 class="header 1">Data List:</h>
+                        // Check if the connection was successful
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
 
-    <table>
-        <tr>
-            <th>Total Post:</th>
-            <td>
-            <?php
-                // Database connection details
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "fkedu";
+                        // Prepare and execute the SQL query
+                        $sql = "SELECT COUNT(*) AS total_quest FROM quesdb";
+                        $result = $conn->query($sql);
 
-                // Create a connection to the database
-                $conn = new mysqli($servername, $username, $password, $dbname);
+                        // Check if there is a row returned
+                        if ($result->num_rows > 0) {
+                            // Fetch the data
+                            $row = $result->fetch_assoc();
+                            echo $row["total_quest"];
+                        } else {
+                            echo "0";
+                        }
 
-                // Check if the connection was successful
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                        // Close the database connection
+                        $conn->close();
+                        ?>
+                    </td>
+                </tr>
+            </table>
 
-                // Prepare and execute the SQL query
-                $sql = "SELECT COUNT(*) AS total_posts FROM posts";
-                $result = $conn->query($sql);
+            <table>
+                <tr>
+                    <th>Total Likes:</th>
+                    <td>
+                    <?php
+                    
+                        // Database connection details
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "edusearch";
 
-                // Check if there is a row returned
-                if ($result->num_rows > 0) {
-                    // Fetch the data
-                    $row = $result->fetch_assoc();
-                    echo $row["total_posts"];
-                } else {
-                    echo "0";
-                }
+                        // Create a connection to the database
+                        $conn = new mysqli($servername, $username, $password, $dbname);
 
-                // Close the database connection
-                $conn->close();
-                ?>
-            </td>
-        </tr>
-    </table>
+                        // Check if the connection was successful
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
 
-    <table>
-        <tr>
-            <th>Total Likes:</th>
-            <td>
-            <?php
-                // Database connection details
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "fkedu";
+                        // Prepare and execute the SQL query
+                        $sql = "SELECT SUM(`likes`) AS total_likes FROM quesdb;";
+                        $result = $conn->query($sql);
 
-                // Create a connection to the database
-                $conn = new mysqli($servername, $username, $password, $dbname);
+                        // Check if there is a row returned
+                        if ($result->num_rows > 0) {
+                            // Fetch the data
+                            $row = $result->fetch_assoc();
+                            echo $row["total_likes"];
+                        } else {
+                            echo "0";
+                        }
 
-                // Check if the connection was successful
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                        // Close the database connection
+                        $conn->close();
+                        ?>
+                    </td>
+                </tr>
+            </table>
 
-                // Prepare and execute the SQL query
-                $sql = "SELECT SUM(`like`) AS total_likes FROM posts;";
-                $result = $conn->query($sql);
+            <table>
+                <tr>
+                    <th>Total Comments:</th>
+                    <td>
+                    <?php
+                        // Database connection details
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "edusearch";
 
-                // Check if there is a row returned
-                if ($result->num_rows > 0) {
-                    // Fetch the data
-                    $row = $result->fetch_assoc();
-                    echo $row["total_likes"];
-                } else {
-                    echo "0";
-                }
+                        // Create a connection to the database
+                        $conn = new mysqli($servername, $username, $password, $dbname);
 
-                // Close the database connection
-                $conn->close();
-                ?>
-            </td>
-        </tr>
-    </table>
+                        // Check if the connection was successful
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
 
-    <table>
-        <tr>
-            <th>Total Comments:</th>
-            <td>
-            <?php
-                // Database connection details
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "fkedu";
+                        // Prepare and execute the SQL query
+                        $sql = "SELECT COUNT(*) AS total_comment FROM comments";
+                        $result = $conn->query($sql);
 
-                // Create a connection to the database
-                $conn = new mysqli($servername, $username, $password, $dbname);
+                        // Check if there is a row returned
+                        if ($result->num_rows > 0) {
+                            // Fetch the data
+                            $row = $result->fetch_assoc();
+                            echo $row["total_comment"];
+                        } else {
+                            echo "0";
+                        }
 
-                // Check if the connection was successful
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                        // Close the database connection
+                        $conn->close();
+                        ?>
+                    </td>
+                </tr>
+            </table>
 
-                // Prepare and execute the SQL query
-                $sql = "SELECT COUNT(*) AS total_comment FROM comments";
-                $result = $conn->query($sql);
+            <table>
+                <tr>
+                    <th>Engagement Rate:</th>
+                    <td>
+                    <?php
+                        // Database connection details
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "edusearch";
 
-                // Check if there is a row returned
-                if ($result->num_rows > 0) {
-                    // Fetch the data
-                    $row = $result->fetch_assoc();
-                    echo $row["total_comment"];
-                } else {
-                    echo "0";
-                }
+                        // Create a connection to the database
+                        $conn = new mysqli($servername, $username, $password, $dbname);
 
-                // Close the database connection
-                $conn->close();
-                ?>
-            </td>
-        </tr>
-    </table>
+                        // Check if the connection was successful
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
 
-    <table>
-        <tr>
-            <th>Engagement Rate:</th>
-            <td>
-            <?php
-                // Database connection details
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "fkedu";
+                        // Prepare and execute the SQL query
+                        $sql = "SELECT COUNT(*) AS total_quest FROM quesdb";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        $total_quest = $row['total_quest'];
 
-                // Create a connection to the database
-                $conn = new mysqli($servername, $username, $password, $dbname);
+                        $sql = "SELECT SUM(`likes`) AS total_likes FROM quesdb";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        $totalLikes = $row['total_likes'];
 
-                // Check if the connection was successful
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                        if ($total_quest != 0 && $totalLikes != 0) {
+                            $averageLike = $totalLikes / $total_quest;
+                            $engagementRate = ($averageLike / $totalLikes) * 100;
+                            echo $engagementRate . "%";
+                        } else {
+                            echo "N/A"; // Handle the case when the divisor is zero
+                        }
 
-                // Prepare and execute the SQL query
-                $sql = "SELECT COUNT(*) AS total_post FROM posts";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                $totalPost = $row['total_post'];
+                        
+                    
+                        // Close the database connection
+                        $conn->close();
+                        ?>
+                    </td>
+                </tr>
+            </table>
 
-                $sql = "SELECT SUM(`like`) AS total_likes FROM posts";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                $totalLikes = $row['total_likes'];
+            <table>
+                <tr>
+                    <th>Retention Rate:</th>
+                    <td>
+                    <?php
+                        // Database connection details
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "edusearch";
 
-                if ($totalPost != 0 && $totalLikes != 0) {
-                    $averageLike = $totalLikes / $totalPost;
-                    $engagementRate = ($averageLike / $totalLikes) * 100;
-                    echo $engagementRate . "%";
-                } else {
-                    echo "N/A"; // Handle the case when the divisor is zero
-                }
+                        // Create a connection to the database
+                        $conn = new mysqli($servername, $username, $password, $dbname);
 
-                
-            
-                // Close the database connection
-                $conn->close();
-                ?>
-            </td>
-        </tr>
-    </table>
+                        // Check if the connection was successful
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
 
-    <table>
-        <tr>
-            <th>Retention Rate:</th>
-            <td>
-            <?php
-                // Database connection details
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "fkedu";
+                        // Prepare and execute the SQL query
+                        $sql = "SELECT COUNT(*) AS total_quest FROM quesdb";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        $total_quest = $row['total_quest'];
 
-                // Create a connection to the database
-                $conn = new mysqli($servername, $username, $password, $dbname);
+                        $sql = "SELECT SUM(`likes`) AS total_likes FROM quesdb";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        $totalLikes = $row['total_likes'];
 
-                // Check if the connection was successful
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                        if ($total_quest != 0 && $totalLikes != 0) {
+                            $averageLike = $totalLikes / $total_quest;
+                            $engagementRate = ($averageLike / $totalLikes) * 100;
+                            echo $engagementRate . "%";
+                        } else {
+                            echo "N/A"; // Handle the case when the divisor is zero
+                        }
+                    
+                        // Close the database connection
+                        $conn->close();
+                        ?>
+                    </td>
+                </tr>
+            </table>
 
-                // Prepare and execute the SQL query
-                $sql = "SELECT COUNT(*) AS total_post FROM posts";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                $totalPost = $row['total_post'];
+            <table>
+                <tr>
+                    <th>User Satisfaction:</th>
+                    <td>
+                    <?php
+                        // Database connection details
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "edusearch";
 
-                $sql = "SELECT SUM(`like`) AS total_likes FROM posts";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                $totalLikes = $row['total_likes'];
+                        // Create a connection to the database
+                        $conn = new mysqli($servername, $username, $password, $dbname);
 
-                if ($totalPost != 0 && $totalLikes != 0) {
-                    $averageLike = $totalLikes / $totalPost;
-                    $engagementRate = ($averageLike / $totalLikes) * 100;
-                    echo $engagementRate . "%";
-                } else {
-                    echo "N/A"; // Handle the case when the divisor is zero
-                }
-            
-                // Close the database connection
-                $conn->close();
-                ?>
-            </td>
-        </tr>
-    </table>
+                        // Check if the connection was successful
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
 
-    <table>
-        <tr>
-            <th>User Satisfaction:</th>
-            <td>
-            <?php
-                // Database connection details
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "fkedu";
+                        // Prepare and execute the SQL query
+                        $sql = "SELECT COUNT(*) AS total_quest FROM quesdb";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        $total_quest = $row['total_quest'];
 
-                // Create a connection to the database
-                $conn = new mysqli($servername, $username, $password, $dbname);
+                        $sql = "SELECT SUM(`likes`) AS total_likes FROM quesdb";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        $totalLikes = $row['total_likes'];
 
-                // Check if the connection was successful
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
-                // Prepare and execute the SQL query
-                $sql = "SELECT COUNT(*) AS total_post FROM posts";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                $totalPost = $row['total_post'];
-
-                $sql = "SELECT SUM(`like`) AS total_likes FROM posts";
-                $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-                $totalLikes = $row['total_likes'];
-
-                if ($totalPost != 0 && $totalLikes != 0) {
-                    $averageLike = $totalLikes / $totalPost;
-                    $engagementRate = ($averageLike / $totalLikes) * 100;
-                    echo $engagementRate . "%";
-                } else {
-                    echo "N/A"; // Handle the case when the divisor is zero
-                }
-            
-                // Close the database connection
-                $conn->close();
-                ?>
-            </td>
-        </tr>
-    </table>
+                        if ($total_quest != 0 && $totalLikes != 0) {
+                            $averageLike = $totalLikes / $total_quest;
+                            $engagementRate = ($averageLike / $totalLikes) * 100;
+                            echo $engagementRate . "%";
+                        } else {
+                            echo "N/A"; // Handle the case when the divisor is zero
+                        }
+                    
+                        // Close the database connection
+                        $conn->close();
+                        ?>
+                    </td>
+                </tr>
+            </table>
+            </h1>
+            <footer class="text-center text-lg-start fixed-bottom" style="background-color: rgb(210, 214, 216);">
+            <div class="text-center p-3 text-dark" style="background-color: rgb(230, 239, 241)">
+                Copyright © 2023 Official Portal- Universiti Malaysia Pahang(Malaysia
+                University)-Public University in Pahang Malaysia All rights reserved.
+            </div>
+        </footer>
+        </div>
 </body>
 </html>

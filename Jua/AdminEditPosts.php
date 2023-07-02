@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Post</title>
+    <title>Edit Status</title>
     <style>
     
     body {
@@ -68,53 +68,42 @@
 </head>
 <body>
 <?php
-    // Retrieve the post_id from the URL query parameters
-    $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : null;
-    $statuss = isset($_POST['statuss']) ? $_POST['statuss'] : null;
+        $id_quest = isset($_GET['id_quest']) ? $_GET['id_quest'] : null;
 
-    // Retrieve post details from the database based on the post_id
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "fkedu";
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "edusearch";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-    // Retrieve post details
-    $sql = "SELECT title, post_description, statuss FROM posts WHERE post_id = '$post_id'";
+        $sql = "SELECT id_quest, question, statuss FROM quesdb WHERE id_quest = '$id_quest'";
+        $result = $conn->query($sql);
 
-    $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $id_quest = $row['id_quest'];
+            $question = $row['question'];
+            $statuss = $row['statuss'];
+        } else {
+            echo "Question not found.";
+            exit();
+        }
 
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $title = $row['title'];
-        $description = $row['post_description'];
-        $statuss = $row['statuss'];
-    } else {
-        echo "Post not found.";
-        exit();
-    }
-
-    // Close the database connection
-    $conn->close();
+        $conn->close();
     ?>
+
     <div class="container">
         <h2>Update Status</h2>
         <form method="POST" action="AdminUpdatePosts.php">
             <div class="form-group">
-                <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
-                <label for="title">Title:</label>
-                <input type="text" name="title" id="title" value="<?php echo $title; ?>" required><br>
-            </div>
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <input type="text" name="description" id="description" value="<?php echo $description; ?>" required><br>
+                <input type="hidden" name="id_quest" value="<?php echo $id_quest; ?>">
+                <label for="question">Question:</label>
+                <input type="text" name="Question" id="Question" value="<?php echo $question; ?>" required><br>
             </div>
             <div class="form-group">
                 <select id="statuss" name="statuss" required>

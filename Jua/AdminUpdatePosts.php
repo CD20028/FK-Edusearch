@@ -1,15 +1,14 @@
 <?php
 // Retrieve the form data
-$post_id = $_POST['post_id'];
-$title = $_POST['title'];
-$description = $_POST['description'];
+$id_quest = $_POST['id_quest'];
+$question = $_POST['question'];
 $statuss = $_POST['statuss'];
 
 // Perform the update
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "fkedu";
+$dbname = "edusearch";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -20,12 +19,12 @@ if ($conn->connect_error) {
 }
 
 // Update the post in the database
-$sql = "UPDATE posts SET title = '$title', post_description = '$description', statuss = '$statuss' WHERE post_id = $post_id";
+$sql = "UPDATE quesdb SET question = '$question', statuss = '$statuss' WHERE id_quest = $id_quest";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Post updated successfully!";
+    echo "Question updated successfully!";
 } else {
-    echo "Error updating post: " . $conn->error;
+    echo "Error updating Question: " . $conn->error;
 }
 
 // Close the database connection
