@@ -136,25 +136,23 @@ if ($conn->connect_error) {
   <thead>
     <tr>
       <th>User ID</th>
-      <th>Expert ID</th>
-      <th>Complaint Type</th>
       <th>Description</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
   <?php // Fetch and display the posts
-$sql = "SELECT complaint_id, expert_id, complaint_type, complaint_description FROM complaint";
+$sql = "SELECT complaint_id, complaint_type, complaint_description FROM complaint";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
     echo "<tr>";
     echo "<td>" . $row["complaint_id"] . "</td>";
-    echo "<td>" . $row["expert_id"] . "</td>";
-    echo "<td>" . $row["complaint_type"] . "</td>";
+    //echo "<td>" . $row["expert_id"] . "</td>";
+    //echo "<td>" . $row["complaint_type"] . "</td>";
     echo "<td>" . $row["complaint_description"] . "</td>";
-    echo "<td><a href='editComplaint.php?complaint_id=" . $row["complaint_id"] . "'>Edit</a></td>";
+    //echo "<td><a href='editComplaint.php?complaint_id=" . $row["complaint_id"] . "'>Edit</a></td>";
     echo "<td><a href='deleteComplaint.php?complaint_id=" . $row["complaint_id"] . "'>Delete</a></td>";
     echo "</tr>";
   }
