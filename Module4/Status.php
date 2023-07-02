@@ -141,6 +141,7 @@
                 <a href="DataList.php">Total of Data</a>
                 <a href="Status.php">Total of Status</a>
                 <a href="ReportMainPage.php">Report</a>
+                <a href="http://localhost/FK-Edusearch/module1/Admin/index.php"><i class="fa fa-cogs"></i> Index</a>
                 <a href="#" oncick="logOutVal()">LOG OUT</a>
             </div>
         </div>
