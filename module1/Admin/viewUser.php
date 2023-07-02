@@ -22,6 +22,28 @@
 </head>
 
 <style>
+    body {
+        background-color: #00ada5;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+  .main {
+    margin-left: 260px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+    padding-top: 66px;
+    background-color: #00ada5;
+  }
+  .sidebar {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 66px;
+    left: 0;
+    background-color: #007973;
+    overflow-x: hidden;
+    padding-top: 16px;
+  }
   .search{
     padding-top: 0px;
 
@@ -53,7 +75,7 @@ while($row = mysqli_fetch_array($result)){
     <a href="index.php" class="w3-button w3-wide w3-hover-grey text-decoration: none;"><img src="Assets/Pictures/logoFK.png" alt="logo" id="logo"></a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
-        <a href="../../logout.php" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav" onclick="logOutVal()">LOG OUT</a>
+        <a href="../Admin/login.php" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav" onclick="logOutVal()">LOG OUT</a>
         <a href="adminProfile.php?userID=<?php echo $_SESSION['userID']; ?>" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav"><i class="fa fa-user-circle-o" style="font-size:23px"></i>ADMIN, <?php echo $row['userName']; ?></a>
     </div>
   </div>
@@ -76,6 +98,8 @@ function logOutVal() {
   <a href="index.php"><i class="fa fa-home"></i> Home</a>
   <a href= "viewUser.php"><i class="fa fa-users"></i> User</a>
   <a href="manageUser.php"><i class="fa fa-cogs"></i> Manage User</a>
+  <a href="http://localhost/FK-Edusearch/Module4/Dashboard.php"><i class="fa fa-cogs"></i> Manage Report</a>
+
 </div>
 
 <!-- main -->

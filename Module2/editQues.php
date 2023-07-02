@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('database.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,11 +80,11 @@
     </tr>
   </thead>
   <?php
-  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  $conn = mysqli_connect("localhost","root","","edusearch");
   if ($conn-> connect_error){
     die("Connection failed:".$conn-> connect_error);
   } 
-  $sql = "SELECT question, research, status,id_quest from quesdb ";
+  $sql = "SELECT question, research, status,id_quest from quesdb WHERE userID = '" . $_SESSION['userID'] . "'";
   $result =$conn-> query($sql);
 
   if ($result-> num_rows >0){
@@ -140,7 +144,7 @@
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
@@ -178,14 +182,23 @@
       
       <script>
     function editQuestion(id_quest) {
-        var confirmEdit = confirm("Are you sure you want to edit this question?");
-        if (confirmEdit) {
+        var confirmDelete = confirm("Are you sure you want to edit this question?");
+        if (confirmDelete) {
+            // Send an AJAX request to delete the question from the database
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "widih.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // If the deletion was successful, remove the row from the table
+                    window.location.href = "widih.php";
+                }
+            };
+            xhr.send("id_quest=" + id_quest);
+            
 
-          var confirmEdit = confirm("Are you sure you want to edit this question?");
-    if (confirmEdit) {
-        window.location.href = "widih.php?id_quest=" + id_quest;
+        }
     }
-}
 </script>
 
 

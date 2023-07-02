@@ -31,21 +31,21 @@ if($rows_fetched==0){
 	
 	if($row["userType"] == "ADMIN")
 				{	
-					header('Location: Admin/index.php');
+					header('Location: ../Admin/index.php');
 				}
 
 				else if($row["userType"] == "STAFF")
 				{
-					header('Location: Customer/index.php');
+					header('Location: ../Staff/index.php');
 				}
                 else if($row["userType"] == "STUDENT")
 				{
-					header('Location: Customer/index.php');
+					header('Location: http://localhost/FK-Edusearch/Module2/dashboard.php');
 				}
 
-				else if($row["userType"] == "RIDER")
+				else if($row["userType"] == "EXPERT")
 				{
-					header('Location: Rider/index.php');
+					header('Location: http://localhost/FK-Edusearch/Module2/EXdashboard.php');
 				}
 	//header("location: indexA.php");
 	exit();

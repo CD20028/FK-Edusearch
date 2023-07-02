@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('database.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,26 +29,10 @@
               <i class="fas fa-search"></i>
             </span>
           </form>
-
-            <!-- Profile dropdown-->
-            <div class="col-md-1" id="profiledropdown">
-              <div class="btn-group" style="margin-left: 50px;">
-                <button type="button" class="btn btn-light"> <span><i class="fas fa-user"></i></span></button>
-                <button
-                  type="button"
-                  class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#">Log Out</a></li>
-                </ul>
-              </div>
-            </div>
+          
+ <!-- Profile dropdown-->
+ <div class="w3-right w3-hide-small">
+            <button class="btn btn-danger" onclick="logOutVal()">LOG OUT</button>
             <!-- Profile dropdown-->
      
     </div>
@@ -61,8 +49,7 @@
       <!--Content-->
       <div class="content">
         <div class="margin"> 
-          <div class="" id="profile"> <img src="profile.jpg" alt="Image" style="float: left; margin-right: 10px; border-radius: 50%; width: 150px; height: 150px;">
-        </div>
+          
 
         <div class="table-and-buttons">         
           <table class="table table-sm">
@@ -76,22 +63,25 @@
                 <th>Matric ID</th>
                 <th>Phone Number</th>
                 <th>Address</th>
+                
               </tr>
             </thead>
+
            <?php
-  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  $query = "SELECT * FROM user WHERE userID = '" . $_SESSION['userID'] . "'";         
+  $conn = mysqli_connect("localhost","root","","edusearch");
   if ($conn-> connect_error){
     die("Connection failed:".$conn-> connect_error);
   } 
-  $sql = "SELECT name,matricID, phoneNum, address from profile ";
+  $sql = "SELECT fullName,matricID, phoneNumber, address from user WHERE userID = '" . $_SESSION['userID'] . "'";
   $result =$conn-> query($sql);
 
   if ($result-> num_rows >0){
     while ($row = $result-> fetch_assoc()){
       echo "<tr>";
-      echo "<td>" . $row["name"] . "</td>";
+      echo "<td>" . $row["fullName"] . "</td>";
       echo "<td>" . $row["matricID"] . "</td>";
-      echo "<td>" . $row["phoneNum"] . "</td>";
+      echo "<td>" . $row["phoneNumber"] . "</td>";
       echo "<td>" . $row["address"] . "</td>";
       echo "</tr>";
     }
@@ -134,7 +124,7 @@
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
@@ -164,6 +154,19 @@
   });
 </script>
    
+
+<script>
+function logOutVal() {
+  var ask = window.confirm("Are you sure you want to log out?");
+  if (ask == true) {
+    window.location="http://localhost/FK-Edusearch/module1/Admin/login.php";
+  } else {
+    return false;
+  }
+}
+</script> 
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>

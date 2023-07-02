@@ -107,7 +107,7 @@ if (isset($_POST["submit"])) {
     </tr>
   </thead>
   <?php
-  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  $conn = mysqli_connect("localhost","root","","edusearch");
   if ($conn-> connect_error){
     die("Connection failed:".$conn-> connect_error);
   } 
@@ -183,7 +183,7 @@ if (isset($_POST["submit"])) {
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "

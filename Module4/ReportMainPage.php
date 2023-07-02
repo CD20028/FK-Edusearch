@@ -1,62 +1,63 @@
 <!DOCTYPE html>
 <html>
+<title>FKeduSearch.com</title>
 <head>
     <title>View Report</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-        body {
-            background-color: #D6D1B3;
-            font-family: 'Inter', sans-serif;
+        .content {
+            margin-bottom: 30px;
         }
 
-        h1.header {
-            text-align: center;
+        .margin {
+            margin-left: 250px;
         }
 
-        ul.navbar {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+        .heading {
             background-color: white;
-        }
-
-        ul.navbar::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        ul.navbar li {
-            float: left;
-        }
-
-        ul.navbar li a {
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        ul.navbar li a:hover {
-            background-color: #8dc0ad;
-            color: white;
-        }
-
-        .navbar-right {
-            float: right;
-        }
-
-        .profile-pic {
-            display: inline-block;
-            vertical-align: middle;
-            width: 30px;
             height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
+            margin-left: 200px;
+        }
+
+        #logoump img {
+            margin-top: 100px;
+            width: 200px;
+            margin-left: -10px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 150px;
+            background-color: rgb(84, 255, 175);
+            padding: 20px;
+        }
+
+        .sidebar .list-group a {
+            display: block;
+            padding: 10px;
+            background-color: rgb(84, 255, 175);
+            margin-bottom: 10px;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .sidebar .list-group a:hover {
+            background-color: rgb(131, 136, 133);
+        }
+
+        .main-content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            margin-top: 0;
         }
 
         .notification-logo {
@@ -81,7 +82,7 @@
             background-color: white;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
-            font-size: 10px;
+            font-size: 16px;
         }
 
         th {
@@ -95,7 +96,7 @@
         td {
             padding: 10px;
             text-align: left;
-            font-size: 16px;
+            font-size: 25px;
         }
 
         .dropdown {
@@ -108,7 +109,7 @@
             position: absolute;
             background-color: #f9f9f9;
             min-width: 160px;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
@@ -131,11 +132,13 @@
 </head>
 <body>
 <?php
+        
+    
     // Database connection details
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "fkedu";
+    $dbname = "edusearch";
 
     // Create a connection to the database
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -146,7 +149,7 @@
     }
      // Initialize variables for data retrieval
      $interval = "daily"; // Default interval
-     $totalPosts = 0;
+     $total_quest = 0;
      $totalComments = 0;
      $totalLikes = 0;
 
@@ -154,17 +157,17 @@
         $interval = $_GET['interval'];
     }
 
-    $sql = "SELECT COUNT(*) AS total_posts FROM posts";
+    $sql = "SELECT COUNT(*) AS total_quest FROM quesdb";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    $totalPosts = $row['total_posts'];
+    $total_quest = $row['total_quest'];
 
     $sql = "SELECT COUNT(*) AS total_comments FROM comments";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $totalComments = $row['total_comments'];
 
-    $sql = "SELECT SUM(`like`) AS total_likes FROM posts";
+    $sql = "SELECT SUM(`likes`) AS total_likes FROM quesdb";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $totalLikes = $row['total_likes'];
@@ -173,10 +176,11 @@
 
 
     // Retrieve posts and comments from the database
-    $sql = "SELECT posts.post_id AS post_id, posts.title AS post_title, posts.post_description AS post_description, COUNT(comments.comment_id) AS comment_count, posts.statuss AS statuss
-        FROM posts 
-        LEFT JOIN comments ON posts.post_id = comments.post_id 
-        GROUP BY posts.post_id, posts.title, posts.post_description, posts.statuss";
+    $sql = "SELECT quesdb.id_quest, quesdb.total_quest AS total_quest, quesdb.question AS ques_question, COUNT(comments.comment_id) AS comment_count, quesdb.statuss AS statuss
+    FROM quesdb 
+    LEFT JOIN comments ON quesdb.total_quest = comments.total_quest 
+    GROUP BY quesdb.id_quest, quesdb.total_quest, quesdb.question, quesdb.statuss";
+
 
     $result = $conn->query($sql);
 
@@ -184,28 +188,29 @@
     // Close the database connection
     $conn->close();
 ?>
-    <img src="Ump.png" alt="Logo" width="50" height="80">
-    <img src="fkLogo.png" alt="Logo" width="150" height="100">
+<div class="sidebar collapse d-lg-block sidebar collapse">
+        <div id="logoump">
+            <img src="logoFK.png" alt="Logo UMP" style="margin-top: -20px;">
+        </div>
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <a href="Dashboard.php">Home</a>
+                <a href="DataList.php">Total of Data</a>
+                <a href="Status.php">Total of Status</a>
+                <a href="ReportMainPage.php">Report</a>
+                <a href="http://localhost/FK-Edusearch/module1/Admin/index.php"><i class="fa fa-cogs"></i> Index</a>
 
-<ul class="navbar">
-    <li><a href="Dashboard.php">Home</a></li>
-    <li><a href="DataList.php">Data</a></li>
-    <li><a href="Status.php">Status</a></li>
-    <li><a href="User.php">User List</a></li>
-    <li><a href="ComplaintListPage.php">Complaint</a></li>
-    <li><a href="ReportMainPage.php">Report</a></li>
-    <li class="navbar-right">
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" alt="Profile Picture" class="profile-pic">
-        <img src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-notification-icon-png-image_1577363.jpg" alt="Notification Logo" class="notification-logo">
-    </li>
-</ul>
+                <a href="#" oncick="logOutVal()">LOG OUT</a>
+            </div>
+        </div>
+    </div>
+<div class="main-content">
 
 <h1 class="header">View Report</h1>
 
 <table>
     <tr>
-        <th>Title</th>
-        <th>Description</th>
+        <th>Question</th>
         <th>Comment Count</th>
         <th>Status </th>
         <th>Actions</th>
@@ -213,20 +218,18 @@
     <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $postID = $row['post_id'];
-                $postTitle = $row['post_title'];
-                $postDescription = $row['post_description'];
+                $id_quest = $row['id_quest'];
+                $quesquestion = $row['ques_question'];
                 $commentCount = $row['comment_count'];
                 $statuss = $row['statuss'];
                 ?>
                 <tr>
-                    <td><?php echo $postTitle; ?></td>
-                    <td><?php echo $postDescription; ?></td>
+                    <td><?php echo $quesquestion; ?></td>
                     <td><?php echo $commentCount; ?></td>
                     <td><?php echo $statuss; ?></td>
                     <td>
-                        <a href="AdminEditPosts.php?post_id=<?php echo $postID; ?>">Edit</a>
-                        <a href="deletePost.php?post_id=<?php echo $postID; ?>">Delete</a>
+                        <a href="AdminEditPosts.php?id_quest=<?php echo $id_quest; ?>">Edit</a>
+                        <a href="deletePost.php?id_quest=<?php echo $id_quest; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php
@@ -240,6 +243,12 @@
         }
     ?>
 </table>
-
+<footer class="text-center text-lg-start fixed-bottom" style="background-color: rgb(210, 214, 216);">
+            <div class="text-center p-3 text-dark" style="background-color: rgb(230, 239, 241)">
+                Copyright © 2023 Official Portal- Universiti Malaysia Pahang(Malaysia
+                University)-Public University in Pahang Malaysia All rights reserved.
+            </div>
+        </footer>
+</div>
 </body>
 </html>

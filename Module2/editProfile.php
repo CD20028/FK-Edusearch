@@ -1,13 +1,14 @@
 <?php
+session_start();
 require 'connection.php';
 
 if (isset($_POST["submit"])) {
-  $name = $_POST["name"];
+  $name = $_POST["fullName"];
   $matricID = $_POST["matricID"];
-  $phoneNum = $_POST["phoneNum"];
+  $phoneNum = $_POST["phoneNumber"];
   $address = $_POST["address"];
 
-  $query = "UPDATE profile SET name='$name', matricID='$matricID', phoneNum='$phoneNum', address='$address'";
+  $query = "UPDATE user SET fullName='$name', matricID='$matricID', phoneNumber='$phoneNum', address='$address' WHERE userID = '" . $_SESSION['userID'] . "'";
   mysqli_query($conn, $query);
 
   if (mysqli_affected_rows($conn) > 0) {
@@ -111,11 +112,11 @@ if (isset($_POST["submit"])) {
             </thead>
             <tbody>
            <?php
-  $conn = mysqli_connect("localhost","root","","fk_edusearch");
+  $conn = mysqli_connect("localhost","root","","edusearch");
   if ($conn-> connect_error){
     die("Connection failed:".$conn-> connect_error);
   } 
-  $sql = "SELECT name,matricID, phoneNum, address from profile ";
+  $sql = "SELECT fullName,matricID, phoneNumber, address from user WHERE userID = '" . $_SESSION['userID'] . "'";
   $result =$conn-> query($sql);
 
   if ($result-> num_rows >0){
@@ -124,13 +125,13 @@ if (isset($_POST["submit"])) {
 
       echo "<tr>";
       echo "<td >";
-     echo "<input type='text' style='width: 350px;' name='name' value='" . $row['name'] . "' id='nameInput'>";
+     echo "<input type='text' style='width: 350px;' name='fullName' value='" . $row['fullName'] . "' id='fullNameInput'>";
      
      echo "<td>";
-     echo "<input type='text' style='width: 150px;' name='matricID' value='" . $row['matricID'] . "' id='matriIDInput'>";
+     echo "<input type='text' style='width: 150px;' name='matricID' value='" . $row['matricID'] . "' id='matricIDInput'>";
      
      echo "<td>";
-     echo "<input type='text' style='width: 150px;' name='phoneNum' value='" . $row['phoneNum'] . "' id='phoneNumInput'>";
+     echo "<input type='text' style='width: 150px;' name='phoneNumber' value='" . $row['phoneNumber'] . "' id='phoneNumberInput'>";
      
      echo "<td>";
      echo "<input type='text' style='width: 300px;' name='address' value='" . $row['address'] . "' id='addressInput'>";
@@ -180,7 +181,7 @@ if (isset($_POST["submit"])) {
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "

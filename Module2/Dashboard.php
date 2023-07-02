@@ -1,6 +1,51 @@
+<?php
+session_start();
+require 'connection.php';
+if(isset($_POST["comment"])){
+
+  $comment = $_POST["comment"];
+  $userID= $_SESSION['userID'] ;
+  $commentQuery = "INSERT INTO comments (comment_id,comment,userID) VALUES ('$comment_id','$comment','$userID')";
+  mysqli_query($conn, $commentQuery);
+
+  echo
+  "
+  <script>  alert('Comment have been created !'); 
+  window.location.href = 'Dashboard.php';
+  </script>
+  ";
+
+
+}
+
+
+if (isset($_POST["like"])) {
+  $questionId = $_POST["id_quest"];
+
+  // Update the like count in the database
+  $updateQuery = "UPDATE quesdb SET likes = likes + 1 WHERE id_quest = '$questionId'";
+  mysqli_query($conn, $updateQuery);
+
+  echo "
+    <script>
+      alert('Liked!');
+      window.location.href = 'Dashboard.php';
+    </script>
+  ";
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,25 +71,14 @@
             </span>
           </form>
 
+          <form class="d-flex input-group w-auto" method="GET" action="">
+    <input class="form-control me-2" type="search" name="search" placeholder="Search question..." aria-label="Search">
+    <button class="btn btn-outline-primary" type="submit">Search</button>
+</form>
+
             <!-- Profile dropdown-->
-            <div class="col-md-1" id="profiledropdown">
-              <div class="btn-group" style="margin-left: 50px;">
-                <button type="button" class="btn btn-light"> <span><i class="fas fa-user"></i></span></button>
-                <button
-                  type="button"
-                  class="btn btn-light dropdown-toggle dropdown-toggle-split"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#">Log Out</a></li>
-                </ul>
-              </div>
-            </div>
+            <div class="w3-right w3-hide-small">
+            <button class="btn btn-danger" onclick="logOutVal()">LOG OUT</button>
             <!-- Profile dropdown-->
      
     </div>
@@ -53,7 +87,7 @@
 
       <div class="heading">
         <div class="container-fluid" style="margin:10px">
-          <h2 class="navbar-brand" href="Dashboard.html">TOPIC</h2>
+          <h2 class="navbar-brand" href="Dashboard.php">TOPIC</h2>
         </div>
     </div>
 <br>
@@ -66,26 +100,110 @@
           
 
               <!-- First content section -->
-              
-            <div class="" id="profile"> <img src="profile.jpg" alt="Image" style="float: left; margin-right: 10px; border-radius: 50%; width: 150px; height: 150px;">
-            </div>
-          
+              <div class="content-wrapper">
+        <div class="comment-section">
+              <?php
+  $conn = mysqli_connect("localhost","root","","edusearch");
+  if ($conn-> connect_error){
+    die("Connection failed:".$conn-> connect_error);
+  } 
 
-          <th>Comment</th>
-                <form action="edit_question.php" method="POST">
-                    <div>
-                        <label for="question"></label>
-                        <textarea name="question" id="question" rows="4" cols="50"></textarea>
-                    </div>
-                    <input type="hidden" name="id_quest" value="<?php echo $id_quest; ?>">
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
+  $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-           
-      </div>
+  $sql = "SELECT question, research, status,id_quest,likes from quesdb ";
+  
+  if (!empty($search)) {
+    $sql .= " WHERE question LIKE '%$search%'";
+}
+
+  $result =$conn-> query($sql);
+
+  if ($result-> num_rows >0){
+    while ($row = $result-> fetch_assoc()){
+
       
-      </div>
+      echo "<td>" . $row["question"] . "</td>";
+      echo "      Research Area :";
+
+      echo "<td>" . $row["research"] . "</td>";
+     echo "<br>" ;
+
+     echo "      Status :";
+      echo "<td>" . $row["status"] . "</td>";
+  echo "<br>" ;
+
+      echo "  <td>    Total likes for this post :</td>";
+      echo "<td>" . $row["likes"] . "</td>";
+
+
+      ?>
+            
+  
+      <tr>
+      <td colspan="2">
+        <form action="" method="POST">
+          <input type="hidden" name="id_quest" value="<?php echo $row["id_quest"]; ?>">
+          <button  type="submit"  class="float-button "  name="like">Like</button>
+        </form>
+      </td>
+    </tr>  
+<?php
+
+      
+      ?>
+      
+      <div class="table-section">
+      <table>
+        <br>
+      <tr>
+          <td>Ahmad:</td>
+             <td>I think this bro</td>
+      </tr>
+      <tr>
+      
+      <tr>
+      <td>Juliet:</td>
+          <td>Send help !</td>
+      </tr>
+      <!-- Add more rows as needed -->
+  </table>
+  </div>
+<?php
+
+
+
+      ?>
+            
+            <td colspan="2">
+        
+      <th>Comment:</th>
+            <form action="" method="post">
+                <div>
+                    <label for="comment"></label>
+                    <textarea name="comment" id="comment" rows="1" cols="50"></textarea>
+                <input type="hidden" name="id_quest" value="<?php echo $id_quest; ?>">
+                <button  type="submit"  class="float-button "  name="comment">Submit</button>
+            </form>
+            <hr style="border-top: 10px solid green; margin-top: 10px; margin-bottom: 10px;">
+           
+       
+          
+          </td>
+            <br>  
+<?php
+
+  
+    }
+  }
+  else {
+   echo "0 result";
+
+  }
+  $conn-> close();
+  ?>
+  
+      
+      
      
 
     
@@ -111,7 +229,7 @@
                     <div class="" id="logoump"><img src ="logoFK.png" alt="Logo UMP" srcset=""style="margin-top: -20px;"></div>
                     <div class="position-sticky" >
                       <div class="list-group list-group-flush mx-3 mt-4" >
-                        <a href="Dashboard.html" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
+                        <a href="Dashboard.php" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                         <span>Dashboard</span>
                         </a>
                         <a href="ManageQuestion.php" class="list-group-item list-group-item-action py-2 ripple "
@@ -140,6 +258,18 @@
 
       <!--Scripting link for bootstrap and mdb-->
    
+
+      <script>
+function logOutVal() {
+  var ask = window.confirm("Are you sure you want to log out?");
+  if (ask == true) {
+    window.location="http://localhost/FK-Edusearch/module1/Admin/login.php";
+  } else {
+    return false;
+  }
+}
+</script> 
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>

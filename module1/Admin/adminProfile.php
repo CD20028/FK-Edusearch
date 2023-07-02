@@ -4,7 +4,7 @@
    session_start();
 ?>
 <html>
-<title>OnPrint.com</title>
+<title>FKeduSearch.com</title>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,16 +18,32 @@
 
 <!--link css-->
 <link rel="stylesheet" type="text/css" href="Assets/styles.css">
-<link rel="icon" href="Assets/Pictures/about.jpeg">
+<link rel="icon" href="Assets/Pictures/logoFK.png">
 </head>
 
 <style>
-    body{
-        background-color: #D6D1B3;
-        background-blend-mode: color;
+    body {
+        background-color: #00ada5;
         background-repeat: no-repeat;
         background-size: cover;
     }
+  .main {
+    margin-left: 260px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+    padding-top: 66px;
+    background-color: #00ada5;
+  }
+  .sidebar {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 66px;
+    left: 0;
+    background-color: #007973;
+    overflow-x: hidden;
+    padding-top: 16px;
+  }
     h1{
         font-family: "Raleway", sans-serif;
         color: WHITE;
@@ -49,7 +65,7 @@
         border-radius: 10px;
         margin-top: 110px;
         margin-bottom: 50px;
-        color: black;
+        color: white;
     }
     input[type=text], input[type=password], input[type=date], input[type=email],select, .userType {
         width: 97%;
@@ -97,21 +113,20 @@ while($row = mysqli_fetch_array($result)){
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card" id="myNavbar">
-    <a href="index.php" class="w3-button w3-wide w3-hover-brown text-decoration: none;"><img src="Assets/Pictures/logo.png" alt="logo" id="logo"></a>
+    <a href="index.php" class="w3-button w3-wide w3-hover-grey text-decoration: none;"><img src="Assets/Pictures/logoFK.png" alt="logo" id="logo"></a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
-        <a href="../../logout.php" class="w3-bar-item w3-button w3-hover-brown w3-right" id="horizontolNav" onclick="logOutVal()">LOG OUT</a>
-        <a href="adminProfile.php?userID=<?php echo $_SESSION['userID']; ?>" class="w3-bar-item w3-button w3-hover-brown w3-right" id="horizontolNav"><i class="fa fa-user-circle-o" style="font-size:23px"></i>ADMIN, <?php echo $row['userName']; ?></a>
+        <a href="../Admin/login.php" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav" onclick="logOutVal()">LOG OUT</a>
+        <a href="adminProfile.php?userID=<?php echo $_SESSION['userID']; ?>" class="w3-bar-item w3-button w3-hover-grey w3-right" id="horizontolNav"><i class="fa fa-user-circle-o" style="font-size:23px"></i>ADMIN, <?php echo $row['userName']; ?></a>
     </div>
   </div>
 </div>
 <?php } ?>
 <!-- Navbar (left side) -->
 <div class="sidebar">
-<a href="index.php"><i class="fas fa-home"></i> Home</a>
-  <a href= "viewUser.php"><i class="fas fa-user-check"></i> User</a>
-  <a href="manageUser.php"><i class="fas fa-user-cog"></i> Manage User</a>
-  <a href="printingOutlet.php"><i class="fas fa-print"></i> Printing Outlet</a>
+  <a href="index.php"><i class="fa fa-home"></i> Home</a>
+  <a href= "viewUser.php"><i class="fa fa-users"></i> User</a>
+  <a href="manageUser.php"><i class="fa fa-cogs"></i> Manage User</a>
 </div>
 
 <!-- main -->
@@ -135,7 +150,7 @@ $email = $row["email"];
 $userType = $row["userType"]; 
 ?>
 
-<table style="background-color: #8E532D; letter-spacing: 0.5px;">
+<table style="background-color: #007973; letter-spacing: 0.5px;">
 <form method="post" action="updateProfile.php?id=<?php echo $userID; ?>">
 <tr>
     <th>
@@ -174,7 +189,7 @@ $userType = $row["userType"];
             <option value="ADMIN">ADMIN</option>
             <option value="STAFF">STAFF</option>
             <option value="STUDENT">STUDENT</option>
-            <option value="RIDER">RIDER</option>
+            <option value="EXPERT">EXPERT</option>
         </select>
     </td>
     </tr>

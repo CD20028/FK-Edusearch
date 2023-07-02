@@ -4,7 +4,7 @@ if (isset($_POST['id_quest'])) {
     $id = $_POST['id_quest'];
 
     // Create a database connection
-    $conn = mysqli_connect("localhost", "root", "", "fk_edusearch");
+    $conn = mysqli_connect("localhost", "root", "", "edusearch");
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }

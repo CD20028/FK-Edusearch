@@ -15,15 +15,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--link css-->
-    <link rel="stylesheet" type="text/css" href="Assets/styles.css">
+ <!--   <link rel="stylesheet" type="text/css" href="Assets/styles.css"> -->
     <link rel="icon" href="Assets/Pictures/logoFK.png">
 </head>
 <style>
     body {
-        background-color: #D6D1B3;
-        background-blend-mode: color;
+        background-color: #00ada5;
         background-repeat: no-repeat;
         background-size: cover;
+	    height: 100%;
+        line-height: 1.8;
     }
     h1{
         font-family: "Raleway", sans-serif;
@@ -38,7 +39,7 @@
         margin-top: 170px;
         border-radius: 0px;
         box-shadow: 0 10px 20px 0 gray;
-        color: black;
+        color: white;
     }
 
     input[type=text], input[type=password], select {
@@ -87,7 +88,7 @@
 
 <body>
 
-    <table style="background-color: #8E532D; letter-spacing: 0.5px;">
+    <table style="background-color: #007973; letter-spacing: 0.5px;">
 
         <form action="loginProcess.php" method="post">
             <tr>

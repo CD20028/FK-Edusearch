@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html>
+<title>FKeduSearch.com</title>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-        body {
+        .content {
+            margin-bottom: 30px;
+        }
+
+        .margin {
+            margin-left: 250px;
+        }
+
+        .heading {
             background-color: white;
-            font-family: 'Inter', sans-serif;
-        }
-
-        h1.header {
-            text-align: center;
-        }
-
-        ul.navbar {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: white;
-        }
-
-        ul.navbar::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        ul.navbar li {
-            float: left;
-        }
-
-        ul.navbar li a {
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        ul.navbar li a:hover {
-            background-color: #111;
-            color: white;
-        }
-
-        .navbar-right {
-            float: right;
-        }
-
-        .profile-pic {
-            display: inline-block;
-            vertical-align: middle;
-            width: 30px;
             height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
+            margin-left: 200px;
+        }
+
+        #logoump img {
+            margin-top: 100px;
+            width: 200px;
+            margin-left: -10px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 150px;
+            background-color: rgb(84, 255, 175);
+            padding: 20px;
+        }
+
+        .sidebar .list-group a {
+            display: block;
+            padding: 10px;
+            background-color: rgb(84, 255, 175);
+            margin-bottom: 10px;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .sidebar .list-group a:hover {
+            background-color: rgb(131, 136, 133);
+        }
+
+        .main-content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            margin-top: 0;
         }
 
         .notification-logo {
@@ -107,7 +108,7 @@
             position: absolute;
             background-color: #f9f9f9;
             min-width: 160px;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
@@ -130,6 +131,7 @@
 </head>
 <body>
 <?php
+    
     // Database connection details
     $servername = "localhost";
     $username = "root";
@@ -169,31 +171,30 @@
     $conn->close();
 ?>
 
-<img src="Ump.png" alt="Logo" width="50" height="80">
-<img src="fkLogo.png" alt="Logo" width="150" height="100">
 
-<ul class="navbar">
-    <li><a href="Dashboard.php">Home</a></li>
-    <li><a href="DataList.php">Data</a></li>
-    <li><a href="Status.php">Status</a></li>
-    <li><a href="User.php">User List</a></li>
-    <li><a href="ComplaintListPage.php">Complaint</a></li>
-    <li><a href="ReportMainPage.php">Report</a></li>
-    <li class="navbar-right">
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" alt="Profile Picture" class="profile-pic">
-        <img src="https://png.pngtree.com/png-vector/20190725/ourmid/pngtree-vector-notification-icon-png-image_1577363.jpg" alt="Notification Logo" class="notification-logo">
-    </li>
-</ul>
-
+<div class="sidebar collapse d-lg-block sidebar collapse">
+        <div id="logoump">
+            <img src="logoFK.png" alt="Logo UMP" style="margin-top: -20px;">
+        </div>
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <a href="Dashboard.php">Home</a>
+                <a href="DataList.php">Total of Data</a>
+                <a href="Status.php">Total of Status</a>
+                <a href="ReportMainPage.php">Report</a>
+                <a href="http://localhost/FK-Edusearch/module1/Admin/index.php"><i class="fa fa-cogs"></i> Index</a>
+                <a href="#" oncick="logOutVal()">LOG OUT</a>
+            </div>
+        </div>
+    </div>
+<div class="main-content">
 <h1 class="header">Dashboards</h1>
 
 <div class="dropdown">
     <button class="dropbtn">Choose Graph</button>
     <div class="dropdown-content">
-        <a href="ReportPage.php">Data Graph</a>
+        <a href="Dashboard.php">Data Graph</a>
         <a href="StatusGraphPage.php">Status Graph</a>
-        <a href="UserGraphPage.php">User Graph</a>
-        <a href="ComplaintGraphPage.php">Complaint Graph</a>
     </div>
 </div>
 
@@ -235,5 +236,6 @@
         }
     });
 </script>
+</div>
 </body>
 </html>
